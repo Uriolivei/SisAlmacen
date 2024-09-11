@@ -56,6 +56,9 @@ public class FrmClientes extends javax.swing.JInternalFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton6 = new javax.swing.JButton();
 
+        setClosable(true);
+        setTitle("Clientes");
+
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/search-1.png"))); // NOI18N

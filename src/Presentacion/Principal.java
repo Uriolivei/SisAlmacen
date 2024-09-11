@@ -186,6 +186,11 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/exit.png"))); // NOI18N
         jMenu8.setText("Salir");
+        jMenu8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu8MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu8);
 
         setJMenuBar(jMenuBar1);
@@ -273,6 +278,11 @@ public class Principal extends javax.swing.JFrame {
         Escritorio.add(frmconsultasventas );
         frmconsultasventas.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jMenu8MouseClicked
 
     /**
      * @param args the command line arguments
