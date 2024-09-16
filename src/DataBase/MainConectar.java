@@ -1,9 +1,18 @@
 package DataBase;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class MainConectar {
+    
+    public static void main(String[] args) {
+        Conexion conexion = Conexion.getInstancia();
+        conexion.conectar();
+        if(conexion.cadena!=null){
+            JOptionPane.showMessageDialog(null, "Conectado");
+        }else{
+            System.out.println("Desconectado");
+        }
+    }
     
     //metodo
     /*public int auto_increment(){
@@ -16,17 +25,6 @@ public class MainConectar {
         return 0;
         
     }*/
-    
-    public static void main(String[] args) {
-        // TODO code application logic here
-        Conexion conexion = Conexion.getInstancia();
-        conexion.conectar();
-        if(conexion.cadena!= null){
-            System.out.println("Conectado");
-        }else{
-            System.out.println("Desconectado");    
-        }
-    }
     
     
 }

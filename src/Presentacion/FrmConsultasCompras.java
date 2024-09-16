@@ -28,6 +28,11 @@ public class FrmConsultasCompras extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel1.setText("Bienvenido a Consultas Compras");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
