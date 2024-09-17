@@ -57,6 +57,9 @@ public class FrmClientes extends javax.swing.JInternalFrame {
         jButton6 = new javax.swing.JButton();
 
         setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Clientes");
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));

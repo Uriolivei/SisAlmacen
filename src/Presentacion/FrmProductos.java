@@ -58,6 +58,9 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         jButton7 = new javax.swing.JButton();
 
         setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Productos");
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));

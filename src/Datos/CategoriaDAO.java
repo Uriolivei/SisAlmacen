@@ -87,12 +87,40 @@ public class CategoriaDAO implements CategoriaInterface<Categoria> {
 
     @Override
     public boolean desactivar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps=CON.conectar().prepareStatement("UPDATE categorias SET condicion=0 WHERE idcategoria=?");
+            ps.setInt(1, id);
+            if(ps.executeUpdate()>0){
+                resp=true;
+            }
+            ps.close();
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se pudo desactivar categoría" + yeji.getMessage());
+        }finally{
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
     public boolean activar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps=CON.conectar().prepareStatement("UPDATE categorias SET condicion=1 WHERE idcategoria=?");
+            ps.setInt(1, id);
+            if(ps.executeUpdate()>0){
+                resp=true;
+            }
+            ps.close();
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se pudo activar categoría" + yeji.getMessage());
+        }finally{
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
