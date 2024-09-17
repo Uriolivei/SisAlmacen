@@ -388,7 +388,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
                 }
             }
         }else{
-            this.mensajeError("Seleciona 1 registro a desactivar");
+            this.mensajeError("Seleciona 1 registro a activar");
         }
     }//GEN-LAST:event_btnActivarActionPerformed
 
