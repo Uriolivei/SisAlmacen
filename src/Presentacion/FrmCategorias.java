@@ -469,15 +469,15 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
             return;
         }
         String resp;
-        if(this.accion.equals("Editar")){
+        if(this.accion.equals("editar")){
             //Condicional para editar
             resp = this.CONTROL.actualizar(Integer.parseInt(txtId.getText()),txtNombre.getText(),this.nombreAnt, txtDescripcion.getText());
-            if(resp.equals("Oki diki domi doki")){
+            if(resp.equals("Oki doki domi doki")){
                 this.mensajeOk("Actualizado corectamente");
                 this.listar("");
                 tabGeneral.setSelectedIndex(0);
-                tabGeneral.setEnabledAt(0, false);
-                tabGeneral.setEnabledAt(1, true);
+                tabGeneral.setEnabledAt(1, false);
+                tabGeneral.setEnabledAt(0, true);
             }else{
                 this.mensajeError(resp);
             }
@@ -488,8 +488,8 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
                 this.mensajeOk("Registrado corectamente");
                 this.listar("");
                 tabGeneral.setSelectedIndex(0);
-                tabGeneral.setEnabledAt(0, false);
-                tabGeneral.setEnabledAt(1, true);
+                tabGeneral.setEnabledAt(1, false);
+                tabGeneral.setEnabledAt(0, true);
             }else{
                 this.mensajeError(resp);
             }
@@ -507,10 +507,10 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
             txtId.setText(id);
             txtNombre.setText(nombre);
             txtDescripcion.setText(descripcion);
-            
-            tabGeneral.setSelectedIndex(1);
+           
             tabGeneral.setEnabledAt(0, false);
             tabGeneral.setEnabledAt(1, true);
+            tabGeneral.setSelectedIndex(1);
             this.accion = "editar";
             btnGuardar.setText("Editar");
         }else{

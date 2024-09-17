@@ -68,7 +68,6 @@ public class CategoriaDAO implements CategoriaInterface<Categoria> {
     public boolean actualizar(Categoria obj) {
         resp=false;
         try {
-           ps=CON.cadena.prepareStatement("UPDATE categorias SET nombre=?, descripcion=? WHERE idcategoria=?");
            ps=CON.conectar().prepareStatement("UPDATE categorias SET nombre=?, descripcion=? WHERE idcategoria=?");
            ps.setString(1, obj.getNombre());
            ps.setString(2, obj.getDescripcion());

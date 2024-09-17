@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/SENATI/Documents/NetBeans%20-%20Projects/git%202/SisAlmacen/src/Presentacion/FrmClientes.java</file>
-            <file>file:/C:/Users/SENATI/Documents/NetBeans%20-%20Projects/git%202/SisAlmacen/src/Presentacion/FrmCategorias.java</file>
-            <file>file:/C:/Users/SENATI/Documents/NetBeans%20-%20Projects/git%202/SisAlmacen/src/Presentacion/Principal.java</file>
-            <file>file:/C:/Users/SENATI/Documents/NetBeans%20-%20Projects/git%202/SisAlmacen/src/Presentacion/FrmProductos.java</file>
-            <file>file:/C:/Users/SENATI/Documents/NetBeans%20-%20Projects/git%202/SisAlmacen/src/Datos/CategoriaDAO.java</file>
-            <file>file:/C:/Users/SENATI/Documents/NetBeans%20-%20Projects/git%202/SisAlmacen/src/Negocio/CategoriaControl.java</file>
+            <file>file:/E:/Ing.Software%20Semestre%20III(3)/Programación/JAVA/git%202/SisAlmacen/src/Presentacion/Principal.java</file>
+            <file>file:/E:/Ing.Software%20Semestre%20III(3)/Programación/JAVA/git%202/SisAlmacen/src/Datos/CategoriaDAO.java</file>
+            <file>file:/E:/Ing.Software%20Semestre%20III(3)/Programación/JAVA/git%202/SisAlmacen/src/Negocio/CategoriaControl.java</file>
+            <file>file:/E:/Ing.Software%20Semestre%20III(3)/Programación/JAVA/git%202/SisAlmacen/src/Presentacion/FrmCategorias.java</file>
         </group>
     </open-files>
 </project-private>
