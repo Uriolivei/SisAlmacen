@@ -72,17 +72,20 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Categorías");
 
+        jPanel4.setBackground(new java.awt.Color(0, 204, 204));
+
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/off.png"))); // NOI18N
         jButton4.setText("Desactivar Categorías");
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/check.png"))); // NOI18N
         jButton5.setText("Activar Categorías");
 
+        txtTotalRegistros.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtTotalRegistros.setText("Total de registros: ");
 
         jLabel2.setText("Escriba Categoría");
 
-        txtBuscar.setForeground(new java.awt.Color(153, 153, 153));
+        txtBuscar.setForeground(new java.awt.Color(51, 51, 51));
         txtBuscar.setText("Buscar...");
         txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -112,6 +115,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/edit.png"))); // NOI18N
         jButton3.setText("Editar Categoría");
 
+        tablaListado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tablaListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
