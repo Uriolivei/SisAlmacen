@@ -50,7 +50,7 @@ public class CategoriaDAO implements CategoriaInterface<Categoria> {
            try {
             ps=CON.conectar().prepareStatement("INSERT INTO categorias(nombre,descripcion,condicion) VALUES(?,?,1)");
             ps.setString(1, obj.getNombre());
-            ps.setString(1, obj.getDescripcion());
+            ps.setString(2, obj.getDescripcion());
             if(ps.executeUpdate()>0){
                 resp=true;
             }
@@ -68,7 +68,8 @@ public class CategoriaDAO implements CategoriaInterface<Categoria> {
     public boolean actualizar(Categoria obj) {
         resp=false;
         try {
-           ps=CON.conectar().prepareCall("UPDATE categorias SET nombere=?, descripcion=? WHERE idcategoria=?");
+           ps=CON.cadena.prepareStatement("UPDATE categorias SET nombre=?, descripcion=? WHERE idcategoria=?");
+           ps=CON.conectar().prepareStatement("UPDATE categorias SET nombre=?, descripcion=? WHERE idcategoria=?");
            ps.setString(1, obj.getNombre());
            ps.setString(2, obj.getDescripcion());
            ps.setInt(3, obj.getIdcategoria());
@@ -157,7 +158,7 @@ public class CategoriaDAO implements CategoriaInterface<Categoria> {
             }
             rs.close();
             ps.close();
-        }catch(Exception yeji){
+        }catch(SQLException yeji){
             JOptionPane.showMessageDialog(null,"No se puede validar datos" + yeji.getMessage());
         }finally{
             ps=null;

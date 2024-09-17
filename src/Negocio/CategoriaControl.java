@@ -64,6 +64,34 @@ public class CategoriaControl {
         }
     }
     
+    //metodo para actualizar dtos de la categoria
+    public String actualizar(int id,String nombre,String nombreAt,String descripcion){
+        if(nombre.equals(nombreAt)){
+            obj.setIdcategoria(id);
+            obj.setNombre(nombre);
+            obj.setDescripcion(descripcion);
+            if(DATOS.actualizar(obj)){
+                return "Oki doki domi doki";
+            }else{
+                return "Error en la actualización";
+            }
+        }else{
+            if(DATOS.existe(nombre)){
+                return "La categoría ya existe";
+            }else{
+                obj.setIdcategoria(id);
+                obj.setNombre(nombre);
+                obj.setDescripcion(descripcion);
+                if(DATOS.actualizar(obj)){
+                    return "Oki doki domi doki";
+                }else{
+                    return "ERROR en la actualización";
+                }
+            }
+        }
+        
+    }
+    
     //metodo para retornar el total de registros
     public int total(){
         return DATOS.total();
