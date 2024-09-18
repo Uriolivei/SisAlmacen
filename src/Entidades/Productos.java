@@ -21,7 +21,8 @@ public class Productos {
     
     //constructor con parametros
 
-    public Productos(int idproducto, int categoria_id, String nombre_producto, String descripcion_producto, String imagen_producto, String codigo_producto, String marca_producto, int cantidad_producto, String fecha_vencimiento, double precio_compra, boolean condicion) {
+    public Productos(int idproducto, int categoria_id, String nombre_producto, String descripcion_producto, String imagen_producto, String codigo_producto, String marca_producto, 
+            int cantidad_producto, String fecha_vencimiento, double precio_compra, boolean condicion) {
         this.idproducto = idproducto;
         this.categoria_id = categoria_id;
         this.nombre_producto = nombre_producto;
