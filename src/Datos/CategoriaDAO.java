@@ -68,7 +68,6 @@ public class CategoriaDAO implements CategoriaInterface<Categoria> {
     public boolean actualizar(Categoria obj) {
         resp=false;
         try {
-           ps=CON.cadena.prepareStatement("UPDATE categorias SET nombre=?, descripcion=? WHERE idcategoria=?");
            ps=CON.conectar().prepareStatement("UPDATE categorias SET nombre=?, descripcion=? WHERE idcategoria=?");
            ps.setString(1, obj.getNombre());
            ps.setString(2, obj.getDescripcion());
@@ -166,6 +165,27 @@ public class CategoriaDAO implements CategoriaInterface<Categoria> {
             CON.desconectar();
         }
         return resp;
+    }
+    
+    //metodo paar la consulta SQL para seleccinar categorias
+    public List<Categoria> seleccionar(){
+        List<Categoria> registros = new ArrayList();
+        try {
+            ps = CON.conectar().prepareStatement("SELECT idcategoria, nombre FROM categorias ORDER BY nombre ASC");
+            rs = ps.executeQuery();
+            while(rs.next()){
+                registros.add(new Categoria(rs.getInt(1),rs.getString(2)));
+            }
+            ps.close();
+            rs.close();
+        } catch (Exception yeji) {
+            JOptionPane.showMessageDialog(null, "No se puede cargar categorias" + yeji.getMessage());
+        }finally{
+            ps = null;
+            rs = null;
+            CON.desconectar();
+        }
+        return registros;
     }
     
     

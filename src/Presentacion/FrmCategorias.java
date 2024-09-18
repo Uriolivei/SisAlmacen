@@ -87,6 +87,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Categorías");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/categorias.png"))); // NOI18N
 
         jPanel4.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -213,7 +214,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -320,7 +321,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -337,7 +338,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabGeneral)
+            .addComponent(tabGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
         );
 
         pack();
@@ -469,15 +470,15 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
             return;
         }
         String resp;
-        if(this.accion.equals("Editar")){
+        if(this.accion.equals("editar")){
             //Condicional para editar
             resp = this.CONTROL.actualizar(Integer.parseInt(txtId.getText()),txtNombre.getText(),this.nombreAnt, txtDescripcion.getText());
-            if(resp.equals("Oki diki domi doki")){
+            if(resp.equals("Oki doki domi doki")){
                 this.mensajeOk("Actualizado corectamente");
                 this.listar("");
                 tabGeneral.setSelectedIndex(0);
-                tabGeneral.setEnabledAt(0, false);
-                tabGeneral.setEnabledAt(1, true);
+                tabGeneral.setEnabledAt(1, false);
+                tabGeneral.setEnabledAt(0, true);
             }else{
                 this.mensajeError(resp);
             }
@@ -488,8 +489,8 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
                 this.mensajeOk("Registrado corectamente");
                 this.listar("");
                 tabGeneral.setSelectedIndex(0);
-                tabGeneral.setEnabledAt(0, false);
-                tabGeneral.setEnabledAt(1, true);
+                tabGeneral.setEnabledAt(1, false);
+                tabGeneral.setEnabledAt(0, true);
             }else{
                 this.mensajeError(resp);
             }
@@ -507,10 +508,10 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
             txtId.setText(id);
             txtNombre.setText(nombre);
             txtDescripcion.setText(descripcion);
-            
-            tabGeneral.setSelectedIndex(1);
+           
             tabGeneral.setEnabledAt(0, false);
             tabGeneral.setEnabledAt(1, true);
+            tabGeneral.setSelectedIndex(1);
             this.accion = "editar";
             btnGuardar.setText("Editar");
         }else{

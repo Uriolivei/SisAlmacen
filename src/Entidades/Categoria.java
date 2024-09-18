@@ -19,6 +19,12 @@ public class Categoria {
         this.condicion = condicion;
     }
     
+    //constructor para el id y elnombre para el combobox
+    public Categoria(int idcategoria, String nombre){
+        this.idcategoria = idcategoria;
+        this.nombre = nombre;
+    }
+    
     //get and setter
     public int getIdcategoria() {
         return idcategoria;
