@@ -3,6 +3,8 @@ package Presentacion;
 import Negocio.CategoriaControl;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.TableRowSorter;
 
 public class FrmCategorias extends javax.swing.JInternalFrame {
@@ -19,6 +21,20 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
         this.accion = "Guardar";
         //tablaListado.setEnabled(false);
         tabGeneral.setEnabledAt(1,false);
+        
+        txtBuscar.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                listar(txtBuscar.getText());  // Llama al método para filtrar la tabla cuando se añade texto
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                listar(txtBuscar.getText());  // Llama al método cuando se elimina texto
+            }
+
+            public void changedUpdate(DocumentEvent e) {
+                // Este método no se usa con JTextField
+            }
+        });
     }
     
     //metodos CRUD

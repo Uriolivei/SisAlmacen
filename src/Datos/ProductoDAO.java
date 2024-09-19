@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
 
 public class ProductoDAO implements ProductoInterface<Productos> {
     //variables
@@ -50,22 +51,95 @@ public class ProductoDAO implements ProductoInterface<Productos> {
 
     @Override
     public boolean insertar(Productos obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp=false;
+           try {
+            ps=CON.conectar().prepareStatement("INSERT INTO productos(categoria_id,nombre_producto,descripcion_producto,codigo_producto"
+                    + "marca_producto,cantidad_producto,fecha_vencimiento,precio_compra,condicion) VALUES(?,?,1)");
+            ps.setInt(1, obj.getCategoria_id());
+            ps.setString(2, obj.getNombre_producto());
+            ps.setString(3, obj.getDescripcion_producto());
+            ps.setString(4, obj.getCodigo_producto());
+            ps.setString(5, obj.getMarca_producto());
+            ps.setInt(6, obj.getCantidad_producto());
+            ps.setString(7, obj.getFecha_vencimiento());
+            ps.setDouble(8, obj.getPrecio_compra());
+            if(ps.executeUpdate()>0){
+                resp=true;
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, " Error al registrar categoria " + e.getMessage());
+        }finally{
+               ps=null;
+               CON.desconectar();
+           }
+           return resp;
     }
 
     @Override
     public boolean actualizar(Productos obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp=false;
+        try {
+           ps=CON.conectar().prepareStatement("UPDATE productos SET categoria_id= ?, nombre_producto=?, descripcion_producto=?, codigo_producto=?,"
+                   + "marca_producto=?, cantidad_producto=?, fecha_vencimiento=?, precio_compra=?, condicion=? WHERE idproducto=?");
+           ps.setInt(1, obj.getCategoria_id());
+           ps.setString(2, obj.getNombre_producto());
+           ps.setString(3, obj.getDescripcion_producto());
+           ps.setString(4, obj.getCodigo_producto());
+           ps.setString(5, obj.getMarca_producto());
+           ps.setInt(6, obj.getCantidad_producto());
+           ps.setString(7, obj.getFecha_vencimiento());
+           ps.setDouble(8, obj.getPrecio_compra());
+           ps.setInt(9, obj.getIdproducto());
+           if(ps.executeUpdate()>0){
+               resp = true;
+           }
+           ps.close();
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se puede actualizar los datos" + yeji.getMessage());
+        }finally{
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
     public boolean desactivar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps=CON.conectar().prepareStatement("UPDATE productos SET condicion=0 WHERE idproducto=?");
+            ps.setInt(1, id);
+            if(ps.executeUpdate()>0){
+                resp=true;
+            }
+            ps.close();
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se pudo desactivar producto" + yeji.getMessage());
+        }finally{
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
     public boolean activar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps=CON.conectar().prepareStatement("UPDATE productos SET condicion=1 WHERE idproducto=?");
+            ps.setInt(1, id);
+            if(ps.executeUpdate()>0){
+                resp=true;
+            }
+            ps.close();
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se pudo activar producto" + yeji.getMessage());
+        }finally{
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
@@ -91,7 +165,25 @@ public class ProductoDAO implements ProductoInterface<Productos> {
 
     @Override
     public boolean existe(String texto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try{
+            ps=CON.conectar().prepareStatement("SELECT nombre_producto FROM productos WHERE nombre_producto=?");
+            ps.setString(1,texto);
+            rs=ps.executeQuery();
+            rs.last();
+            if(rs.getRow()>0){
+                resp=true;
+            }
+            rs.close();
+            ps.close();
+        }catch(SQLException yeji){
+            JOptionPane.showMessageDialog(null,"No se puede validar datos" + yeji.getMessage());
+        }finally{
+            ps=null;
+            rs=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     //metodo paar la consulta SQL para seleccinar categorias

@@ -73,4 +73,22 @@ public class ProductoControl {
     public int totalMostrados(){
         return this.registrosMostrar;
     }
+    
+    //metodo para activar
+    public String activar(int id){
+        if(DATOSCAT.activar(id)){
+            return "OK";
+        }else{
+            return "No se puede activar el producto";
+        }
+    }
+    
+    //metodo para desactivar
+    public String desactivar(int id){
+        if(DATOSCAT.desactivar(id)){
+            return "OK";
+        }else{
+            return "No se puede desactivar el producto";
+        }
+    }
 }
