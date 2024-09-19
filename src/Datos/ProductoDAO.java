@@ -43,12 +43,9 @@ public List<Productos> listar(String texto) {
         );
         ps.setString(1, "%" + texto + "%");
         rs = ps.executeQuery();
-        
-        // Procesar los resultados
         while (rs.next()) {
-            // Verifica los índices aquí
             registros.add(new Productos(
-                rs.getInt("Idproducto"),  // Cambia el índice por el alias de la columna
+                rs.getInt("Idproducto"),
                 rs.getString("categoria"), 
                 rs.getString("nombre_producto"), 
                 rs.getString("descripcion_producto"), 
@@ -61,8 +58,6 @@ public List<Productos> listar(String texto) {
                 rs.getBoolean("condicion")
             ));
         }
-        
-        // Cerrar recursos
         ps.close();
         rs.close();
     } catch (SQLException e) {
