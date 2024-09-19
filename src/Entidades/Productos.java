@@ -3,7 +3,7 @@ package Entidades;
 public class Productos {
     //variables
     private int idproducto;
-    private int categoria_id;
+    private String categoria_id;
     private String nombre_producto;
     private String descripcion_producto;
     private String imagen_producto;
@@ -21,7 +21,7 @@ public class Productos {
     
     //constructor con parametros
 
-    public Productos(int idproducto, int categoria_id, String nombre_producto, String descripcion_producto, String imagen_producto, String codigo_producto, String marca_producto, 
+    public Productos(int idproducto, String categoria_id, String nombre_producto, String descripcion_producto, String imagen_producto, String codigo_producto, String marca_producto, 
             int cantidad_producto, String fecha_vencimiento, double precio_compra, boolean condicion) {
         this.idproducto = idproducto;
         this.categoria_id = categoria_id;
@@ -46,11 +46,11 @@ public class Productos {
         this.idproducto = idproducto;
     }
 
-    public int getCategoria_id() {
+    public String getCategoria_id() {
         return categoria_id;
     }
 
-    public void setCategoria_id(int categoria_id) {
+    public void setCategoria_id(String categoria_id) {
         this.categoria_id = categoria_id;
     }
 
@@ -133,5 +133,7 @@ public class Productos {
     public String toString() {
         return "Productos{" + "idproducto=" + idproducto + ", categoria_id=" + categoria_id + ", nombre_producto=" + nombre_producto + ", descripcion_producto=" + descripcion_producto + ", imagen_producto=" + imagen_producto + ", codigo_producto=" + codigo_producto + ", marca_producto=" + marca_producto + ", cantidad_producto=" + cantidad_producto + ", fecha_vencimiento=" + fecha_vencimiento + ", precio_compra=" + precio_compra + ", condicion=" + condicion + '}';
     }
+    
+    
     
 }

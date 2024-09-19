@@ -26,28 +26,56 @@ public class ProductoDAO implements ProductoInterface<Productos> {
     }
 
     @Override
-    public List<Productos> listar(String texto) {
-        List<Productos> registros = new ArrayList<>();
-        try {
-            ps=CON.conectar().prepareStatement("SELECT * FROM productos WHERE nombre_producto LIKE ?");
-            ps.setString(1, "%" + texto + "%");
-            rs=ps.executeQuery();
-            while(rs.next()){
-                registros.add(new Productos(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), 
-                        rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8), 
-                        rs.getString(9), rs.getDouble(10), rs.getBoolean(11)));
-            }
-            ps.close();
-            rs.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, " No se puede mostrar datos en la tabla " + e.getMessage());
-        }finally{
-            ps=null;
-            rs=null;
-            CON.desconectar();
+public List<Productos> listar(String texto) {
+    List<Productos> registros = new ArrayList<>();
+    try {
+        ps = CON.conectar().prepareStatement(
+            "SELECT p.idproducto AS Idproducto, " +
+            "ca.nombre AS categoria, " +
+            "p.nombre_producto, p.descripcion_producto, " +
+            "p.imagen_producto, p.codigo_producto, " +
+            "p.marca_producto, p.cantidad_producto, " +
+            "p.fecha_vencimiento, p.precio_compra, " +
+            "p.condicion " +
+            "FROM productos p " +
+            "INNER JOIN categorias ca ON p.categoria_id = ca.idcategoria " +
+            "WHERE p.nombre_producto LIKE ?"
+        );
+        ps.setString(1, "%" + texto + "%");
+        rs = ps.executeQuery();
+        
+        // Procesar los resultados
+        while (rs.next()) {
+            // Verifica los índices aquí
+            registros.add(new Productos(
+                rs.getInt("Idproducto"),  // Cambia el índice por el alias de la columna
+                rs.getString("categoria"), 
+                rs.getString("nombre_producto"), 
+                rs.getString("descripcion_producto"), 
+                rs.getString("imagen_producto"), 
+                rs.getString("codigo_producto"), 
+                rs.getString("marca_producto"), 
+                rs.getInt("cantidad_producto"), 
+                rs.getString("fecha_vencimiento"), 
+                rs.getDouble("precio_compra"), 
+                rs.getBoolean("condicion")
+            ));
         }
-        return registros;
+        
+        // Cerrar recursos
+        ps.close();
+        rs.close();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "No se puede mostrar datos en la tabla " + e.getMessage());
+    } finally {
+        ps = null;
+        rs = null;
+        CON.desconectar();
     }
+    return registros;
+}
+
+
 
     @Override
     public boolean insertar(Productos obj) {
@@ -55,7 +83,7 @@ public class ProductoDAO implements ProductoInterface<Productos> {
            try {
             ps=CON.conectar().prepareStatement("INSERT INTO productos(categoria_id,nombre_producto,descripcion_producto,codigo_producto"
                     + "marca_producto,cantidad_producto,fecha_vencimiento,precio_compra,condicion) VALUES(?,?,1)");
-            ps.setInt(1, obj.getCategoria_id());
+            ps.setString(1, obj.getCategoria_id());
             ps.setString(2, obj.getNombre_producto());
             ps.setString(3, obj.getDescripcion_producto());
             ps.setString(4, obj.getCodigo_producto());
@@ -82,7 +110,7 @@ public class ProductoDAO implements ProductoInterface<Productos> {
         try {
            ps=CON.conectar().prepareStatement("UPDATE productos SET categoria_id= ?, nombre_producto=?, descripcion_producto=?, codigo_producto=?,"
                    + "marca_producto=?, cantidad_producto=?, fecha_vencimiento=?, precio_compra=?, condicion=? WHERE idproducto=?");
-           ps.setInt(1, obj.getCategoria_id());
+           ps.setString(1, obj.getCategoria_id());
            ps.setString(2, obj.getNombre_producto());
            ps.setString(3, obj.getDescripcion_producto());
            ps.setString(4, obj.getCodigo_producto());
