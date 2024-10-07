@@ -4,17 +4,35 @@
  */
 package Presentacion;
 
+import Negocio.RolControl;
+import java.awt.Color;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author SENATI
  */
 public class FrmRoles extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form FrmRoles
-     */
+    private final RolControl CONTROL;
     public FrmRoles() {
         initComponents();
+        this.CONTROL=new RolControl();
+        this.listar("");
+    }
+    
+    //metodo para listar la tabla
+    private void listar(){
+        tablaListado.setModel(this.CONTROL.listar());
+        TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
+        tablaListado.setRowSorter(orden);
+    }
+    
+    private void listar(String texto){
+        tablaListado.setModel(this.CONTROL.listar());
+        TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
+        tablaListado.setRowSorter(orden);
+        txtTotalRegistros.setText("Muestra " + this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros"); 
     }
 
     /**
@@ -26,22 +44,87 @@ public class FrmRoles extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        txtTotalRegistros = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaListado = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("ROLES");
+        setTitle("Roles");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/roles.png"))); // NOI18N
+
+        txtTotalRegistros.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtTotalRegistros.setText("Total de registros: ");
+
+        tablaListado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tablaListado);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(185, 185, 185))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Listado de Roles de Usuarios", jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 636, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Registro de Roles", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 578, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
@@ -49,5 +132,11 @@ public class FrmRoles extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable tablaListado;
+    private javax.swing.JLabel txtTotalRegistros;
     // End of variables declaration//GEN-END:variables
 }

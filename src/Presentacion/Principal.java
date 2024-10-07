@@ -16,7 +16,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        setExtendedState(MAXIMIZED_BOTH);//Expandir la ventana al 100%
+        //setExtendedState(MAXIMIZED_BOTH);//Expandir la ventana al 100%
     }
 
     /**
@@ -53,11 +53,11 @@ public class Principal extends javax.swing.JFrame {
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1059, Short.MAX_VALUE)
+            .addGap(0, 968, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 466, Short.MAX_VALUE)
+            .addGap(0, 530, Short.MAX_VALUE)
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/box_1.png"))); // NOI18N
