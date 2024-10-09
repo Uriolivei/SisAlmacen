@@ -49,7 +49,7 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
     public Usuario login(String email, String clave){
         Usuario usu = null;
         try {
-            ps = CON.conectar().prepareStatement("SELECT u.idusuario,u.idrol,r.nombre AS rol_nombre.u,nombre,u.tipo_documento,u.documento,u.direccion,u.telefono,u.condicion"
+            ps = CON.conectar().prepareStatement("SELECT u.idusuario,u.idrol,r.nombre AS rol_nombre,u.nombre,u.tipo_documento,u.documento,u.direccion,u.telefono,u.condicion"
                     + "FROM usuarios u INNER JOIN roles r ON u.idrol=r.idrol WHERE u.email=? AND clave=?");
             ps.setString(1, email);
             ps.setString(2, clave);
@@ -71,12 +71,58 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
 
     @Override
     public boolean insertar(Usuario obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps=CON.conectar().prepareCall("INSERT INTO usuarios(idrol,nombre,tipo_documento,documento,direccion,telefono,email,clave,condicion) "
+                    + "VALUES(?,?,?,?,?,?,?,?,?)");
+            ps.setInt(1, obj.getIdrol());
+            ps.setString(2, obj.getNombre());
+            ps.setString(3, obj.getTipo_documento());
+            ps.setString(4, obj.getDocumento());
+            ps.setString(5, obj.getDireccion());
+            ps.setString(6, obj.getTelefono());
+            ps.setString(7, obj.getEmail());
+            ps.setString(8, obj.getClave());
+            
+            if(ps.executeUpdate()>0){
+                resp = true;
+            }
+            ps.close();
+            
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se puede registrar usuario" + yeji.getMessage());
+        }finally{
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
     public boolean actualizar(Usuario obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps=CON.conectar().prepareStatement("UPDATE usuarios SET idrol=?, nombre,=?,tipo_documento=?,documento=?,direccion=?,telefono=?,emai=?,clave=? WHERE idusuario=?");
+            ps.setInt(1, obj.getIdrol());
+            ps.setString(2, obj.getNombre());
+            ps.setString(3, obj.getTipo_documento());
+            ps.setString(4, obj.getDocumento());
+            ps.setString(5, obj.getDireccion());
+            ps.setString(6, obj.getTelefono());
+            ps.setString(7, obj.getEmail());
+            ps.setString(8, obj.getClave());
+            ps.setInt(9, obj.getIdusuario());
+            
+            if(ps.executeUpdate()>0){
+                resp=true;
+            }
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se puede actualizar usuario" + yeji.getMessage());
+        }finally{
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
