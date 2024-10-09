@@ -4,6 +4,7 @@ public class Usuario {
     //atributos claswe usuario
     private int idusuario;
     private int idrol;
+    private String Rolnombre;
     private String nombre;
     private String tipo_documento;
     private String documento;
@@ -17,9 +18,10 @@ public class Usuario {
         
     }
 
-    public Usuario(int idusuario, int idrol, String nombre, String tipo_documento, String documento, String direccion, String telefono, String email, String clave, boolean condicion) {
+    public Usuario(int idusuario, int idrol, String Rolnombre, String nombre, String tipo_documento, String documento, String direccion, String telefono, String email, String clave, boolean condicion) {
         this.idusuario = idusuario;
         this.idrol = idrol;
+        this.Rolnombre = Rolnombre;
         this.nombre = nombre;
         this.tipo_documento = tipo_documento;
         this.documento = documento;
@@ -27,6 +29,19 @@ public class Usuario {
         this.telefono = telefono;
         this.email = email;
         this.clave = clave;
+        this.condicion = condicion;
+    }
+
+    public Usuario(int idusuario, int idrol, String Rolnombre, String nombre, String tipo_documento, String documento, String direccion, String telefono, String email, boolean condicion) {
+        this.idusuario = idusuario;
+        this.idrol = idrol;
+        this.Rolnombre = Rolnombre;
+        this.nombre = nombre;
+        this.tipo_documento = tipo_documento;
+        this.documento = documento;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.email = email;
         this.condicion = condicion;
     }
 
@@ -44,6 +59,14 @@ public class Usuario {
 
     public void setIdrol(int idrol) {
         this.idrol = idrol;
+    }
+
+    public String getRolnombre() {
+        return Rolnombre;
+    }
+
+    public void setRolnombre(String Rolnombre) {
+        this.Rolnombre = Rolnombre;
     }
 
     public String getNombre() {
@@ -109,5 +132,6 @@ public class Usuario {
     public void setCondicion(boolean condicion) {
         this.condicion = condicion;
     }
+
     
 }
