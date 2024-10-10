@@ -7,6 +7,7 @@ package Presentacion;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -14,6 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -78,6 +80,9 @@ public class Principal extends javax.swing.JFrame {
         item2.setFont(menufont);
         item1.setBorder(new EmptyBorder(5, 5, 5, 5)); 
         item2.setBorder(new EmptyBorder(5, 5, 5, 5));
+        item1.setAccelerator(KeyStroke.getKeyStroke('C', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); // Ctrl+C
+        item2.setAccelerator(KeyStroke.getKeyStroke('A', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); // Ctrl+A
+
         item1.setIcon(icon11);
         item2.setIcon(icon21);
         menu1.setIcon(icon);
@@ -123,6 +128,8 @@ public class Principal extends javax.swing.JFrame {
         item4.setIcon(icon41);
         item3.setBorder(new EmptyBorder(5, 5, 5, 5)); 
         item4.setBorder(new EmptyBorder(5, 5, 5, 5));
+        item3.setAccelerator(KeyStroke.getKeyStroke('P', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); // Ctrl+P
+        item4.setAccelerator(KeyStroke.getKeyStroke('I', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); // Ctrl+I
         menuBar2.add(menu2);
         sidePanel.add(menuBar2);
         
@@ -165,6 +172,8 @@ public class Principal extends javax.swing.JFrame {
         item6.setIcon(icon61);
         item5.setBorder(new EmptyBorder(5, 5, 5, 5)); 
         item6.setBorder(new EmptyBorder(5, 5, 5, 5));
+        item5.setAccelerator(KeyStroke.getKeyStroke('L', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); // Ctrl+L
+        item6.setAccelerator(KeyStroke.getKeyStroke('V', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); // Ctrl+V
         menuBar3.add(menu3);
         sidePanel.add(menuBar3);
         
@@ -207,6 +216,8 @@ public class Principal extends javax.swing.JFrame {
         item8.setIcon(icon81);
         item7.setBorder(new EmptyBorder(5, 5, 5, 5)); 
         item8.setBorder(new EmptyBorder(5, 5, 5, 5));
+        item7.setAccelerator(KeyStroke.getKeyStroke('R', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); // Ctrl+R
+        item8.setAccelerator(KeyStroke.getKeyStroke('U', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); // Ctrl+U
         menuBar4.add(menu4);
         sidePanel.add(menuBar4);
         
@@ -249,6 +260,8 @@ public class Principal extends javax.swing.JFrame {
         item10.setIcon(icon101);
         item9.setBorder(new EmptyBorder(5, 5, 5, 5)); 
         item10.setBorder(new EmptyBorder(5, 5, 5, 5));
+        item9.setAccelerator(KeyStroke.getKeyStroke('O', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); // Ctrl+O
+        item10.setAccelerator(KeyStroke.getKeyStroke('N', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); // Ctrl+N
         menuBar5.add(menu5);
         sidePanel.add(menuBar5);
         
@@ -304,17 +317,17 @@ public class Principal extends javax.swing.JFrame {
 
         Escritorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 153));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 906, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 633, Short.MAX_VALUE)
         );
 
         Escritorio.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -323,19 +336,21 @@ public class Principal extends javax.swing.JFrame {
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EscritorioLayout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EscritorioLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         sidePanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 0, 5));
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 51));
 
+        lblSalir.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblSalir.setForeground(new java.awt.Color(255, 255, 255));
         lblSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/salir.png"))); // NOI18N
         lblSalir.setText("SALIR");
         lblSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -345,6 +360,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("SISTEMA DE INVENTARIO \"TODO BARATO\"");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -352,9 +368,9 @@ public class Principal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
+                .addContainerGap(171, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
+                .addGap(99, 99, 99)
                 .addComponent(lblSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
