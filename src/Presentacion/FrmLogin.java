@@ -15,6 +15,7 @@ public class FrmLogin extends javax.swing.JFrame {
      */
     public FrmLogin() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -58,11 +59,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Contaseña: ");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 90, 30));
-
-        jTextField1.setText("jTextField1");
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 180, 30));
-
-        jTextField2.setText("jTextField2");
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, 180, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/ojo_40.png"))); // NOI18N

@@ -58,6 +58,8 @@ public class FrmRoles extends javax.swing.JInternalFrame {
         setTitle("Roles");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/roles.png"))); // NOI18N
 
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+
         txtTotalRegistros.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         txtTotalRegistros.setText("Total de registros: ");
 
@@ -103,6 +105,8 @@ public class FrmRoles extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Listado de Roles de Usuarios", jPanel1);
 
+        jPanel2.setBackground(new java.awt.Color(0, 204, 204));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -120,7 +124,7 @@ public class FrmRoles extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
