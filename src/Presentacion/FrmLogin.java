@@ -32,9 +32,9 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        txtUser = new javax.swing.JTextField();
+        jch_eye = new javax.swing.JCheckBox();
+        jpassword = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,11 +59,19 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Contaseña: ");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 90, 30));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 180, 30));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, 180, 30));
+        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 180, 30));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/ojo_40.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 320, -1, 30));
+        jch_eye.setSelected(true);
+        jch_eye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/ojo_40.png"))); // NOI18N
+        jch_eye.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jch_eyeMouseClicked(evt);
+            }
+        });
+        jPanel1.add(jch_eye, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, -1, 30));
+
+        jpassword.setText("jPasswordField1");
+        jPanel1.add(jpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 322, 180, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/fondo.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, -1));
@@ -81,6 +89,15 @@ public class FrmLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jch_eyeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jch_eyeMouseClicked
+        // TODO add your handling code here:
+        if(jch_eye.isSelected()){
+            jpassword.setEchoChar((char)0);
+        }else{
+            jpassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jch_eyeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -123,9 +140,9 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JCheckBox jch_eye;
+    private javax.swing.JPasswordField jpassword;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,11 +8,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -37,37 +39,22 @@ public class Principal extends javax.swing.JFrame {
         //setExtendedState(MAXIMIZED_BOTH);//Expandir la ventana al 100%
         
         //Imagenes
-        ImageIcon icon = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\box_1.png");
-        ImageIcon icon1 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\buy.png");
-        ImageIcon icon2 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\sale_2.png");
-        ImageIcon icon3 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\access_1.png");
-        ImageIcon icon4 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\report.png");
+        ImageIcon icon = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\box_1.png");
+        ImageIcon icon1 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\buy.png");
+        ImageIcon icon2 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\sale_2.png");
+        ImageIcon icon3 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\access_1.png");
+        ImageIcon icon4 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\report.png");
         
-        ImageIcon icon11 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\categories.png");
-        ImageIcon icon21 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\product.png");
-        ImageIcon icon31 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\box.png");
-        ImageIcon icon41 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\ingresos.png");
-        ImageIcon icon51 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\client.png");
-        ImageIcon icon61 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\sale.png");
-        ImageIcon icon71 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\rol.png");
-        ImageIcon icon81 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\access_2.png");
-        ImageIcon icon91 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\buy.png");
-        ImageIcon icon101 = new ImageIcon("C:\\Users\\Ruth Riveiro\\OneDrive\\Documents\\OneDrive\\Documentos"
-                + "\\NetBeansProjects\\git 2\\SisAlmacen\\src\\Presentacion\\Imagenes\\sale.png");
+        ImageIcon icon11 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\categories.png");
+        ImageIcon icon21 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\product.png");
+        ImageIcon icon31 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\box.png");
+        ImageIcon icon41 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\ingresos.png");
+        ImageIcon icon51 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\client.png");
+        ImageIcon icon61 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\sale.png");
+        ImageIcon icon71 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\rol.png");
+        ImageIcon icon81 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\access_2.png");
+        ImageIcon icon91 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\buy.png");
+        ImageIcon icon101 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\sale.png");
         
         
         JMenu menu1 = new JMenu("Almacén");
@@ -615,4 +602,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lblSalir;
     private javax.swing.JPanel sidePanel;
     // End of variables declaration//GEN-END:variables
+
 }
