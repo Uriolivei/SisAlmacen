@@ -127,22 +127,83 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
 
     @Override
     public boolean desactivar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps=CON.conectar().prepareStatement("UPDATE usuarios SET condicion=0 WHERE idusuario=?");
+            ps.setInt(1, id);
+            if(ps.executeUpdate()>0){
+                resp=true;
+            }
+            ps.close();
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se pudo desactivar categoría" + yeji.getMessage());
+        }finally{
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
     public boolean activar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps=CON.conectar().prepareStatement("UPDATE usuarios SET condicion=1 WHERE idusuario=?");
+            ps.setInt(1, id);
+            if(ps.executeUpdate()>0){
+                resp=true;
+            }
+            ps.close();
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se pudo activar categoría" + yeji.getMessage());
+        }finally{
+            ps=null;
+            CON.desconectar();
+        }
+        return resp;
     }
 
     @Override
     public int total() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int totalRegistros=0;
+        try {
+            ps=CON.conectar().prepareStatement("SELECT COUNT(idudsuario) FROM usuarios)");
+            rs=ps.executeQuery();
+            while(rs.next()){
+                totalRegistros=rs.getInt("COUNT(idusuario)");
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se puede cargar datos" + yeji.getMessage());
+        }finally{
+            ps=null;
+            rs=null;
+            CON.desconectar();
+        }
+        return totalRegistros;
     }
 
     @Override
     public boolean existe(String texto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        resp = false;
+        try {
+            ps =CON.conectar().prepareStatement("SELECT email FROM usuario WHERE email=?");
+            ps.setString(1, texto);
+            rs=ps.executeQuery();
+            rs.last();
+            if(rs.getRow()>0){
+                resp = true;
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException yeji) {
+            JOptionPane.showMessageDialog(null, "No se encuentra datos" + yeji.getMessage());
+        }finally{
+            ps=null;
+            rs=null;
+            CON.desconectar();
+        }
+         return resp;
     }
-    
 }

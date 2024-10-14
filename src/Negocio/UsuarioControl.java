@@ -62,7 +62,7 @@ public class UsuarioControl {
     //metodo para el Login
     public String login(String email, String clave){
         String resp = "0";
-        Usuario usu = this.DATOS.login(email, encriptar(clave));
+        Usuario usu = this.DATOS.login(email, this.encriptar(clave));
         if(usu!=null){
             if(usu.isCondicion()){
                 Variables.usuarioId=usu.getIdusuario();
@@ -104,5 +104,84 @@ public class UsuarioControl {
             items.addElement(new Rol(item.getIdrol(), item.getNombre()));
         }
         return items;
+    }
+    
+    //metodo paar insetar datos de usarios
+    public String insertar(int RolId, String nombre, String tipo_documento,String documento, String direccion, String telefono, String email, String clave){
+        if(DATOS.existe(email)){
+            return "El registro de Usuario ya existe";
+        }else{
+            obj.setIdrol(RolId);
+            obj.setNombre(nombre);
+            obj.setTipo_documento(tipo_documento);
+            obj.setDocumento(documento);
+            obj.setDireccion(direccion);
+            obj.setTelefono(telefono);
+            obj.setEmail(email);
+            obj.setClave(this.encriptar(clave));
+        }
+        return "EROR al registrar Usuario";
+    }
+    
+    //metodo para actualizar datos de usuario
+    public String actualizar(int id, int RolId, String nombre, String tipo_documento,String documento, String direccion, String telefono, String email, String emailAnt, String clave){
+        if(email.equals(emailAnt)){
+            obj.setIdusuario(id);
+            obj.setIdrol(id);
+            obj.setNombre(nombre);
+            obj.setTipo_documento(tipo_documento);
+            obj.setDocumento(documento);
+            obj.setTelefono(telefono);
+            obj.setEmail(email);
+            
+            String encriptado;
+            if(clave.length()==64){
+                encriptado=clave;
+            }else{
+                encriptado=this.encriptar(clave);
+            }
+            obj.setClave(encriptado);
+            if(DATOS.actualizar(obj)){
+                return "OK";
+            }else{
+                return "ERROR al actualizar ususario";
+            }
+        }else{
+            if(DATOS.existe(email)){
+                return "El registro existe";
+            }else{
+                obj.setIdusuario(id);
+                obj.setIdrol(id);
+                obj.setNombre(nombre);
+                obj.setTipo_documento(tipo_documento);
+                obj.setDocumento(documento);
+                obj.setTelefono(telefono);
+                obj.setEmail(email);
+                
+                String encriptado;
+                if(clave.length() == 64){
+                    encriptado = clave;
+                }else{
+                    encriptado=this.encriptar(clave);
+                }
+                obj.setClave(encriptado);
+                
+                if(DATOS.actualizar(obj)){
+                    return "OK";
+                }else{
+                    return "ERROR en la actualización de Usuario";
+                }
+            }
+        }
+    }
+    
+    //metodo del total de usuarios registrados
+    public int total(){
+        return DATOS.total();
+    }
+    
+    //metodo para el totalMostrados
+    public int totalMOstrados(){
+        return this.registroMostrados;
     }
 }
