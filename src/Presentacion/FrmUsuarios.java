@@ -125,6 +125,25 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         lblTotalRegistros.setText(this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");
     }
     
+    //metodo paginar
+    private void paginar(){
+        int totalPagina;
+        
+        this.totalRegistros = this.CONTROL.total();
+        this.totalRegistros = Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
+        totalPagina = (int)(Math.ceil((double)this.totalRegistros/this.totalPorPagina));
+        if(totalPagina == 0){
+            totalPagina = 1;
+        }
+        
+        cboNumPagina.removeAllItems();
+        for(int i = 1; i <totalPagina; i++){
+            cboNumPagina.addItem(Integer.toString(i));
+        }
+        
+        cboNumPagina.setSelectedItem(0);
+    }
+    
     //metodos para las ventanas emergentes
     private void mensajeError(String mensaje){
         JOptionPane.showMessageDialog(this,mensaje,"ERROR",JOptionPane.ERROR_MESSAGE);
