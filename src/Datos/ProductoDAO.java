@@ -213,7 +213,7 @@ public List<Productos> listar(String texto) {
     public List<Categoria> seleccionar(){
         List<Categoria> registros = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT idcategoria, nombre FROM categorias ORDER BY nombre ASC");
+            ps = CON.conectar().prepareStatement("SELECT nombre FROM categorias ORDER BY nombre ASC");
             rs = ps.executeQuery();
             while(rs.next()){
                 registros.add(new Categoria(rs.getInt(1),rs.getString(2)));

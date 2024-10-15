@@ -181,7 +181,7 @@ public class UsuarioControl {
     }
     
     //metodo para el totalMostrados
-    public int totalMOstrados(){
+    public int totalMostrados(){
         return this.registroMostrados;
     }
 }

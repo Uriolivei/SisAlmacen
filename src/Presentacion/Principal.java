@@ -39,22 +39,22 @@ public class Principal extends javax.swing.JFrame {
         //setExtendedState(MAXIMIZED_BOTH);//Expandir la ventana al 100%
         
         //Imagenes
-        ImageIcon icon = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\box_1.png");
-        ImageIcon icon1 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\buy.png");
-        ImageIcon icon2 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\sale_2.png");
-        ImageIcon icon3 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\access_1.png");
-        ImageIcon icon4 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\report.png");
+        ImageIcon icon = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/box_1.png"));
+        ImageIcon icon1 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/buy.png"));
+        ImageIcon icon2 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/sale_2.png"));
+        ImageIcon icon3 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/access_1.png"));
+        ImageIcon icon4 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/report.png"));
         
-        ImageIcon icon11 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\categories.png");
-        ImageIcon icon21 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\product.png");
-        ImageIcon icon31 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\box.png");
-        ImageIcon icon41 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\ingresos.png");
-        ImageIcon icon51 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\client.png");
-        ImageIcon icon61 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\sale.png");
-        ImageIcon icon71 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\rol.png");
-        ImageIcon icon81 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\access_2.png");
-        ImageIcon icon91 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\buy.png");
-        ImageIcon icon101 = new ImageIcon("C:\\Users\\SENATI\\Documents\\NetBeans - Projects\\git 2 - Respaldo\\SisAlmacen\\src\\Presentacion\\Imagenes\\sale.png");
+        ImageIcon icon11 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/categories.png"));
+        ImageIcon icon21 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/product.png"));
+        ImageIcon icon31 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/box.png"));
+        ImageIcon icon41 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/ingresos.png"));
+        ImageIcon icon51 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/client.png"));
+        ImageIcon icon61 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/sale.png"));
+        ImageIcon icon71 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/rol.png"));
+        ImageIcon icon81 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/access_2.png"));
+        ImageIcon icon91 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/buy.png"));
+        ImageIcon icon101 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/sale.png"));
         
         
         JMenu menu1 = new JMenu("Almacén");

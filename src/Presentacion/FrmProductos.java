@@ -252,6 +252,11 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         jLabel3.setText("Categoría");
 
         cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arroz", "Azúcar", "Aceite", " ", " " }));
+        cboCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboCategoriaActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Nombre Producto");
 
@@ -613,6 +618,10 @@ public class FrmProductos extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void cboCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboCategoriaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
