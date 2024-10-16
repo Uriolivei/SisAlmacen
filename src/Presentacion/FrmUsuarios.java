@@ -4,6 +4,7 @@
  */
 package Presentacion;
 
+import Entidades.Rol;
 import Negocio.UsuarioControl;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -31,29 +32,139 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
      */
     public FrmUsuarios() {
         initComponents();
-        ocultarMensaje();
+        //ocultarMensaje();
         btnGuardar.setEnabled(false);
-        this.accion = "Guardar";
-        tabGeneral.setEnabledAt(1,false);
-        //tablaListado.setEnabled(false);
-        this.CONTROL = new UsuarioControl();
-        cargarRoles();
+        this.CONTROL=new UsuarioControl();
+        this.paginar();
+        this.listar("",false);
         this.primeraCarga=false;
-        this.listar("", false);
+        tabGeneral.setEnabledAt(1, false);
+        this.accion="guardar";
+        txtId.setVisible(false);
+        this.cargarRoles();
     } 
     
-    //ImageIcon nombre = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/advertencia_1.png"));
-    //metodo para ocultar mensaje
-    public void ocultarMensaje(){
-        mensajeError.setVisible(false);
+    private void ocultarColumnas(){
+        tablaListado.getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaListado.getColumnModel().getColumn(1).setMinWidth(0);
+        tablaListado.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaListado.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+        
+        tablaListado.getColumnModel().getColumn(9).setMaxWidth(0);
+        tablaListado.getColumnModel().getColumn(9).setMinWidth(0);
+        tablaListado.getTableHeader().getColumnModel().getColumn(9).setMaxWidth(0);
+        tablaListado.getTableHeader().getColumnModel().getColumn(9).setMinWidth(0);
+    }
+    
+    //metodo paginar
+    private void paginar(){
+        int totalPaginas;
+        
+        this.totalRegistros=this.CONTROL.total();
+        this.totalPorPagina=Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
+        totalPaginas=(int)(Math.ceil((double)this.totalRegistros/this.totalPorPagina));
+        if (totalPaginas==0){
+            totalPaginas=1;
+        }
+        cboNumPagina.removeAllItems();
+        
+        for (int i = 1; i <= totalPaginas; i++) {
+            cboNumPagina.addItem(Integer.toString(i));
+        }
+        cboNumPagina.setSelectedIndex(0);
+    }
+    
+    //metodo para listar la tabla ususario
+    private void listar(String texto, boolean paginar){
+         Object selectedItem = cboTotalPorPagina.getSelectedItem();
+        if (selectedItem != null) {
+            try {
+                this.totalPorPagina = Integer.parseInt(selectedItem.toString());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error al convertir el total por página: " + e.getMessage());
+                return; 
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona un total por página válido.");
+            return; 
+        }
+
+        Object selectedPageItem = cboNumPagina.getSelectedItem();
+        if (selectedPageItem != null) {
+            try {
+                this.numPagina = Integer.parseInt(selectedPageItem.toString());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error al convertir el número de página: " + e.getMessage());
+                return; // Salir del método si hay un error
+            }
+        } else {
+            this.numPagina = 1;
+        }
+
+        // Listar datos en la tabla
+        if (paginar) {
+            tablaListado.setModel(this.CONTROL.listar(texto, this.totalPorPagina, this.numPagina));
+        } else {
+            tablaListado.setModel(this.CONTROL.listar(texto, this.totalPorPagina, 1));
+        }
+
+        // Configuración de la tabla
+        TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
+        tablaListado.setRowSorter(orden);
+        this.ocultarColumnas();
+        lblTotalRegistros.setText("Mostrando " + this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");
+    
+        /*this.totalPorPagina=Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
+        if ((String)cboNumPagina.getSelectedItem()!=null){
+            this.numPagina=Integer.parseInt((String)cboNumPagina.getSelectedItem());
+        }
+        
+        if (paginar==true){
+            tablaListado.setModel(this.CONTROL.listar(texto,this.totalPorPagina,this.numPagina));
+        }else{
+            tablaListado.setModel(this.CONTROL.listar(texto,this.totalPorPagina,1));
+        }
+        
+        
+        TableRowSorter orden= new TableRowSorter(tablaListado.getModel());
+        tablaListado.setRowSorter(orden);
+        this.ocultarColumnas();
+        lblTotalRegistros.setText("Mostrando " + this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");*/
     }
     
     //metod para cargar roles
-    public void cargarRoles(){
+    private void cargarRoles(){
         DefaultComboBoxModel items = this.CONTROL.seleccionar();
         cboRol.setModel(items);
     }
     
+    //metodo para limpiar cajas
+    public void limpiar(){
+        txtDireccion.setText("");
+        txtEmail.setText("");
+        txtNombre.setText("");
+        txtDNI.setText("");
+        txtTelefono.setText("");
+        txtClave.setText("");
+        this.accion = "Guardar";
+    }
+    
+    //metodos para las ventanas emergentes
+    private void mensajeError(String mensaje){
+        JOptionPane.showMessageDialog(this,mensaje,"ERROR",JOptionPane.ERROR_MESSAGE);
+    }
+    
+    private void mensajeOk(String mensaje){
+        JOptionPane.showMessageDialog(this,mensaje,"Éxito",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    
+    //ImageIcon nombre = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/advertencia_1.png"));
+    //metodo para ocultar mensaje
+    /*public void ocultarMensaje(){
+        mensajeError.setVisible(false);
+    }*/
+
     //metodo para validar roles
     public void validar(){
         if(txtNombre.getText().isEmpty()){
@@ -96,64 +207,6 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         }
     }
     
-    //metodo para limpiar cajas
-    public void limpiar(){
-        txtDireccion.setText("");
-        txtEmail.setText("");
-        txtNombre.setText("");
-        txtDNI.setText("");
-        txtTelefono.setText("");
-        txtClave.setText("");
-        this.accion = "Guardar";
-    }
-    
-    //metodo para listar la tabla ususario
-    private void listar(String texto, boolean paginar){
-        this.totalPorPagina = Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
-        if((String)cboNumPagina.getSelectedItem()!=null){
-            this.numPagina = Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
-        }
-        
-        if(paginar == true){
-            tablaListado.setModel(this.CONTROL.listar(texto, this.totalPorPagina, this.numPagina));
-        }else{
-            tablaListado.setModel(this.CONTROL.listar(texto, this.totalPorPagina, 1));
-        }
-        
-        TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
-        tablaListado.setRowSorter(orden);
-        
-        lblTotalRegistros.setText(this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");
-    }
-    
-    //metodo paginar
-    private void paginar(){
-        int totalPagina;
-        
-        this.totalRegistros = this.CONTROL.total();
-        this.totalRegistros = Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
-        totalPagina = (int)(Math.ceil((double)this.totalRegistros/this.totalPorPagina));
-        if(totalPagina == 0){
-            totalPagina = 1;
-        }
-        
-        cboNumPagina.removeAllItems();
-        for(int i = 1; i <totalPagina; i++){
-            cboNumPagina.addItem(Integer.toString(i));
-        }
-        
-        cboNumPagina.setSelectedItem(0);
-    }
-    
-    //metodos para las ventanas emergentes
-    private void mensajeError(String mensaje){
-        JOptionPane.showMessageDialog(this,mensaje,"ERROR",JOptionPane.ERROR_MESSAGE);
-    }
-    
-    private void mensajeOk(String mensaje){
-        JOptionPane.showMessageDialog(this,mensaje,"Éxito",JOptionPane.INFORMATION_MESSAGE);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -196,7 +249,7 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         txtNombre = new javax.swing.JTextField();
         txtDNI = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cboDocumento = new javax.swing.JComboBox<>();
         mensajeError = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         lblTelefono = new javax.swing.JLabel();
@@ -205,6 +258,7 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         lblClave = new javax.swing.JLabel();
         txtClave = new javax.swing.JPasswordField();
         check = new javax.swing.JCheckBox();
+        txtId = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setClosable(true);
@@ -235,6 +289,11 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/edit.png"))); // NOI18N
         btnEditar.setText("Editar Usuario");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         tablaListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -277,7 +336,19 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel2.setText("Página");
 
+        cboNumPagina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboNumPaginaActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Total de Registros por Página");
+
+        cboTotalPorPagina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTotalPorPaginaActionPerformed(evt);
+            }
+        });
 
         lblTotalRegistros.setText("Registro de Usuario ");
 
@@ -375,6 +446,11 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/guardar.png"))); // NOI18N
         btnGuardar.setText("GUARDAR");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/cancelar.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
@@ -417,7 +493,7 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "PASAPORTE" }));
+        cboDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "PASAPORTE" }));
 
         mensajeError.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         mensajeError.setForeground(new java.awt.Color(255, 0, 0));
@@ -466,7 +542,7 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                                     .addComponent(cboRol, 0, 210, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboDocumento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                                     .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(86, 86, 86)
@@ -487,7 +563,9 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
                                         .addGap(11, 11, 11)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -498,14 +576,16 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
                                             .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(check)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addContainerGap(67, Short.MAX_VALUE))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cboRol, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -516,7 +596,7 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -579,12 +659,42 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
 
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
         // TODO add your handling code here:
-        
+        if (tablaListado.getSelectedRowCount() == 1) {
+            String id= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),0));
+            String nombre= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),3));
+            
+            if(JOptionPane.showConfirmDialog(this,"Deseas desactivar el registro: " + nombre + " ?", "Desactivar", JOptionPane.YES_NO_OPTION)==0){
+                String resp=this.CONTROL.desactivar(Integer.parseInt(id));
+                if (resp.equals("OK")){
+                    this.mensajeOk("Registro desactivado");
+                    this.listar("",false);
+                }else{
+                    this.mensajeError(resp);
+                }
+            }
+        } else {
+            this.mensajeError("Seleccione 1 registro a desactivar.");
+        }
     }//GEN-LAST:event_btnDesactivarActionPerformed
 
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
         // TODO add your handling code here:
-        
+        if (tablaListado.getSelectedRowCount() == 1) {
+            String id= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),0));
+            String nombre= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),3));
+            
+            if(JOptionPane.showConfirmDialog(this,"Deseas activar el registro: " + nombre + " ?", "Activar", JOptionPane.YES_NO_OPTION)==0){
+                String resp=this.CONTROL.activar(Integer.parseInt(id));
+                if (resp.equals("OK")){
+                    this.mensajeOk("Registro activado");
+                    this.listar("",false);
+                }else{
+                    this.mensajeError(resp);
+                }
+            }
+        } else {
+            this.mensajeError("Seleccione 1 registro a activar.");
+        }
     }//GEN-LAST:event_btnActivarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -655,7 +765,123 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        this.listar(txtBuscar.getText(),false);
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        if (txtNombre.getText().length()==0 || txtNombre.getText().length()>70){
+            JOptionPane.showMessageDialog(this, "Debes ingresar un nombre y no debe ser mayor a 70 caracteres, es obligatorio.","Sistema", JOptionPane.WARNING_MESSAGE);
+            txtNombre.requestFocus();
+            return;
+        }
+        if (txtEmail.getText().length()==0 || txtEmail.getText().length()>50 ){
+            JOptionPane.showMessageDialog(this, "Debes ingresar un email y no debe ser mayor a 50 caracteres, es obligatorio.","Sistema", JOptionPane.WARNING_MESSAGE);
+            txtEmail.requestFocus();
+            return;
+        }
+        if (txtClave.getText().length()==0 || txtClave.getText().length()>64){
+            JOptionPane.showMessageDialog(this, "Debes ingresar una clave, es obligatorio.","Sistema", JOptionPane.WARNING_MESSAGE);
+            txtClave.requestFocus();
+            return;
+        }
+        if (txtDNI.getText().length()>20){
+            JOptionPane.showMessageDialog(this, "Debes ingresar un número de documento no mayor a 20 caracteres.","Sistema", JOptionPane.WARNING_MESSAGE);
+            txtDNI.requestFocus();
+            return;
+        }
+        if (txtDireccion.getText().length()>70){
+            JOptionPane.showMessageDialog(this, "Debes ingresar una dirección no mayor a 70 caracteres.","Sistema", JOptionPane.WARNING_MESSAGE);
+            txtDireccion.requestFocus();
+            return;
+        }
+        if (txtTelefono.getText().length()>15){
+            JOptionPane.showMessageDialog(this, "Debes ingresar un teléfono no mayor a 15 caracteres.","Sistema", JOptionPane.WARNING_MESSAGE);
+            txtTelefono.requestFocus();
+            return;
+        }        
+        String resp;
+        if (this.accion.equals("editar")){
+            //Editar
+            Rol seleccionado = (Rol)cboRol.getSelectedItem();
+            resp=this.CONTROL.actualizar(Integer.parseInt(txtId.getText()),seleccionado.getIdrol(),txtNombre.getText(),(String)cboDocumento.getSelectedItem(),
+                    txtDNI.getText(),txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText(),this.emailAnt,txtClave.getText());
+            if(resp.equals("OK")){
+                this.mensajeOk("Actualizado correctamente");
+                this.limpiar();
+                this.listar("",false);                
+                tabGeneral.setSelectedIndex(0);
+                tabGeneral.setEnabledAt(1, false);
+                tabGeneral.setEnabledAt(0, true);
+            }else{
+                this.mensajeError(resp);
+            }
+        }else{
+            //guardar
+            Rol seleccionado = (Rol)cboRol.getSelectedItem();
+            resp=this.CONTROL.insertar(seleccionado.getIdrol(),txtNombre.getText(),(String)cboDocumento.getSelectedItem(),txtDNI.getText(),
+                    txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText(),txtClave.getText());
+            if(resp.equals("OK")){
+                this.mensajeOk("Registrado correctamente");
+                this.limpiar();
+                this.listar("",false);                
+                /*tabGeneral.setSelectedIndex(0);
+                tabGeneral.setEnabledAt(1, false);
+                tabGeneral.setEnabledAt(0, true);*/
+            }else{
+                this.mensajeError(resp);
+            }
+        }        
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+         if (tablaListado.getSelectedRowCount()==1){
+            String id= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),0));
+            int rolId=Integer.parseInt(String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),1)));
+            String rolNombre=String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),2));
+            String nombre=String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),3));
+            String tipoDocumento= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),4));
+            String numDocumento= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),5));
+            String direccion= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),6));
+            String telefono= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),7));
+            String email= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),8));
+            this.emailAnt= String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),8));
+            String clave=String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(),9));
+            
+            
+            txtId.setText(id);
+            Rol seleccionado=new Rol(rolId,rolNombre);
+            cboRol.setSelectedItem(seleccionado);
+            txtNombre.setText(nombre);
+            cboDocumento.setSelectedItem(tipoDocumento);
+            txtDNI.setText(numDocumento);
+            txtDireccion.setText(direccion);
+            txtTelefono.setText(telefono);
+            txtEmail.setText(email);
+            txtClave.setText(clave);
+            
+            tabGeneral.setEnabledAt(0, false);
+            tabGeneral.setEnabledAt(1, true);
+            tabGeneral.setSelectedIndex(1);
+            this.accion="editar";
+            btnGuardar.setText("Editar");
+        }else{
+            this.mensajeError("Seleccione 1 registro a editar.");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void cboNumPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNumPaginaActionPerformed
+        // TODO add your handling code here:
+        if (this.primeraCarga==false){
+            this.listar("",true);
+        }
+    }//GEN-LAST:event_cboNumPaginaActionPerformed
+
+    private void cboTotalPorPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTotalPorPaginaActionPerformed
+        // TODO add your handling code here:
+        this.paginar();
+    }//GEN-LAST:event_cboTotalPorPaginaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -666,11 +892,11 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<String> cboDocumento;
     private javax.swing.JComboBox<String> cboNumPagina;
     private javax.swing.JComboBox<String> cboRol;
     private javax.swing.JComboBox<String> cboTotalPorPagina;
     private javax.swing.JCheckBox check;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -699,6 +925,7 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JLabel txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

@@ -49,8 +49,7 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
     public Usuario login(String email, String clave){
         Usuario usu = null;
         try {
-            ps = CON.conectar().prepareStatement("SELECT u.idusuario,u.idrol,r.nombre AS rol_nombre,u.nombre,u.tipo_documento,u.documento,u.direccion,u.telefono,u.condicion"
-                    + "FROM usuarios u INNER JOIN roles r ON u.idrol=r.idrol WHERE u.email=? AND clave=?");
+            ps = CON.conectar().prepareStatement("SELECT u.idusuario,u.idrol,r.nombre AS rol_nombre,u.nombre,u.tipo_documento,u.documento,u.direccion,u.telefono,u.email,u.condicion FROM usuarios u INNER JOIN roles r ON u.idrol=r.idrol WHERE u.email=? AND clave=?");
             ps.setString(1, email);
             ps.setString(2, clave);
             rs = ps.executeQuery();
@@ -167,16 +166,17 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
     public int total() {
         int totalRegistros=0;
         try {
-            ps=CON.conectar().prepareStatement("SELECT COUNT(idudsuario) FROM usuarios)");
+            ps=CON.conectar().prepareStatement("SELECT COUNT(idusuario) FROM usuarios");            
             rs=ps.executeQuery();
+            
             while(rs.next()){
                 totalRegistros=rs.getInt("COUNT(idusuario)");
-            }
+            }            
             ps.close();
             rs.close();
-        } catch (SQLException yeji) {
-            JOptionPane.showMessageDialog(null, "No se puede cargar datos" + yeji.getMessage());
-        }finally{
+        }  catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally{
             ps=null;
             rs=null;
             CON.desconectar();

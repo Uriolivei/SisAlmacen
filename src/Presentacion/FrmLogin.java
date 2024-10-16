@@ -4,6 +4,9 @@
  */
 package Presentacion;
 
+import Negocio.UsuarioControl;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author SENATI
@@ -32,8 +35,10 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtUser = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jch_eye = new javax.swing.JCheckBox();
+        btnIngresar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jpassword = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
 
@@ -53,13 +58,13 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Usuario: ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 70, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 70, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Contaseña: ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 90, 30));
-        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 180, 30));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 90, 30));
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 180, 30));
 
         jch_eye.setSelected(true);
         jch_eye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/ojo_40.png"))); // NOI18N
@@ -68,12 +73,29 @@ public class FrmLogin extends javax.swing.JFrame {
                 jch_eyeMouseClicked(evt);
             }
         });
-        jPanel1.add(jch_eye, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, -1, 30));
+        jPanel1.add(jch_eye, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, -1, 30));
+
+        btnIngresar.setText("INGRESAR");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, 90, 40));
+
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, 100, 40));
 
         jpassword.setText("jPasswordField1");
-        jPanel1.add(jpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 322, 180, 30));
+        jPanel1.add(jpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 180, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/fondo.png"))); // NOI18N
+        jLabel2.setText("CANCELAR");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -98,6 +120,37 @@ public class FrmLogin extends javax.swing.JFrame {
             jpassword.setEchoChar('*');
         }
     }//GEN-LAST:event_jch_eyeMouseClicked
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        // TODO add your handling code here:
+        if(txtEmail.getText().length()==0 || txtEmail.getText().length()>50){
+            JOptionPane.showMessageDialog(this,"Debes ingresar un email, y este no debe superar los 50 caracteres.","Sistema",JOptionPane.WARNING_MESSAGE);
+            txtEmail.requestFocus();
+            return;
+        }
+        if(jpassword.getText().length()==0 || jpassword.getText().length()>64){
+            JOptionPane.showMessageDialog(this,"Debes ingresar una clave de acceso, y este no debe superar los 64 caracteres.","Sistema",JOptionPane.WARNING_MESSAGE);
+            jpassword.requestFocus();
+            return;
+        }
+        UsuarioControl control=new UsuarioControl();
+        String resp=control.login(txtEmail.getText(), jpassword.getText());
+        if(resp.equals("1")){
+            this.dispose();
+            Principal frm=new Principal();
+            frm.toFront();
+            frm.setVisible(true);
+        }else if(resp.equals("2")){
+            JOptionPane.showMessageDialog(this,"Usuario no tiene acceso.","Sistema",JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this,"Los datos de acceso son incorrectos.","Sistema",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,6 +188,8 @@ public class FrmLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -143,6 +198,6 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JCheckBox jch_eye;
     private javax.swing.JPasswordField jpassword;
-    private javax.swing.JTextField txtUser;
+    private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 }

@@ -175,6 +175,22 @@ public class UsuarioControl {
         }
     }
     
+    public String desactivar(int id){
+        if (DATOS.desactivar(id)){
+            return "OK";
+        }else{
+            return "No se puede desactivar el registro";
+        }
+    }
+    
+    public String activar(int id){
+        if (DATOS.activar(id)){
+            return "OK";
+        }else{
+            return "No se puede activar el registro";
+        }
+    }
+    
     //metodo del total de usuarios registrados
     public int total(){
         return DATOS.total();
