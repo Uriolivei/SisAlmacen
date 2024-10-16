@@ -31,6 +31,16 @@ public class ProductoControl {
             return items;
         }
         
+        public DefaultComboBoxModel seleccionarMarca(){
+            DefaultComboBoxModel items = new DefaultComboBoxModel();
+            List<Productos> lista = new ArrayList();
+            lista = DATOSCAT.seleccionarMarca();
+            for(Productos item:lista){
+                items.addElement(new Productos(item.getIdproducto(),item.getMarca_producto()));
+            }
+            return items;
+        }
+        
     //métodos para el giro de negocio
     public DefaultTableModel listar(String texto){
         List<Productos> lista = new ArrayList();

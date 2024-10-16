@@ -213,7 +213,7 @@ public List<Productos> listar(String texto) {
     public List<Categoria> seleccionar(){
         List<Categoria> registros = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT nombre FROM categorias ORDER BY nombre ASC");
+            ps = CON.conectar().prepareStatement("SELECT idcategoria, nombre FROM categorias ORDER BY nombre ASC");
             rs = ps.executeQuery();
             while(rs.next()){
                 registros.add(new Categoria(rs.getInt(1),rs.getString(2)));
@@ -222,6 +222,26 @@ public List<Productos> listar(String texto) {
             rs.close();
         } catch (Exception yeji) {
             JOptionPane.showMessageDialog(null, "No se puede cargar categorias" + yeji.getMessage());
+        }finally{
+            ps = null;
+            rs = null;
+            CON.desconectar();
+        }
+        return registros;
+    }
+    
+    public List<Productos> seleccionarMarca(){
+        List<Productos> registros = new ArrayList();
+        try {
+            ps = CON.conectar().prepareStatement("SELECT idproducto, marca_producto FROM productos ORDER BY marca_producto ASC");
+            rs = ps.executeQuery();
+            while(rs.next()){
+                registros.add(new Productos(rs.getInt(1), rs.getString(2)));
+            }
+            ps.close();
+            rs.close();
+        } catch (Exception yeji) {
+            JOptionPane.showMessageDialog(null, "No se puede cargar marcas" + yeji.getMessage());
         }finally{
             ps = null;
             rs = null;

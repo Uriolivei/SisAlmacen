@@ -34,6 +34,7 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         this.CONTROL = new ProductoControl();
         this.listar("");
         this.cargarCategoria();
+        this.cargarMarca();
         TablaListado.setEnabled(true);
         General.setEnabledAt(1,false);
         
@@ -73,6 +74,20 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         DefaultComboBoxModel item = this.CONTROL.seleccionar();
         cboCategoria.setModel(item);
     }
+    
+    private void cargarMarca(){
+        DefaultComboBoxModel item = this.CONTROL.seleccionarMarca();
+        cboMarca.setModel(item);
+    }
+    
+    public void limpiar(){
+        txtNombreProducto.setText("");
+        txtDescripcion.setText("");
+        txtCodigo.setText("");
+        txtCantidad.setText("");
+        txtPrecio.setText("");
+        this.accion = "Guardar";
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,7 +119,7 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
-        cboFecha = new javax.swing.JComboBox<>();
+        cboMarca = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -285,9 +300,9 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(txtDescripcion);
 
-        jLabel5.setText("Marca Producto");
+        jLabel5.setText("Fecha de Vencimiento");
 
-        cboFecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cubana", "Gloria", "Alejandrina", "Soy Vida", " " }));
+        cboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         jLabel7.setText("Cantidad Producto");
 
@@ -301,7 +316,7 @@ public class FrmProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setText("Fecha de Vencimiento");
+        jLabel8.setText("Marca de Producto");
 
         jLabel9.setText("Precio");
 
@@ -378,20 +393,20 @@ public class FrmProductos extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(29, 29, 29)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(46, 46, 46)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(38, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(25, 25, 25)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(50, 50, 50)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                                     .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -428,7 +443,7 @@ public class FrmProductos extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,6 +628,7 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         General.setEnabledAt(0,true);
         General.setEnabledAt(1,false);
         General.setSelectedIndex(0);
+        this.limpiar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -635,7 +651,7 @@ public class FrmProductos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JComboBox<String> cboCategoria;
-    private javax.swing.JComboBox<String> cboFecha;
+    private javax.swing.JComboBox<String> cboMarca;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel10;

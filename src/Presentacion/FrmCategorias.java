@@ -53,6 +53,12 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
     private void mensajeOk(String mensaje){
         JOptionPane.showMessageDialog(this,mensaje,"Éxito",JOptionPane.INFORMATION_MESSAGE);
     }
+    
+    public void limpiar(){
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+        this.accion = "Guardar";
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -470,6 +476,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
         tabGeneral.setEnabledAt(0,true);
         tabGeneral.setEnabledAt(1,false);
         tabGeneral.setSelectedIndex(0);
+        this.limpiar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed

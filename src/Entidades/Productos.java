@@ -35,6 +35,13 @@ public class Productos {
         this.precio_compra = precio_compra;
         this.condicion = condicion;
     }
+
+    public Productos(int idproducto, String marca_producto) {
+        this.idproducto = idproducto;
+        this.marca_producto = marca_producto;
+    }
+    
+    
     
     //getter and setter
 
@@ -127,13 +134,10 @@ public class Productos {
     }
     
     
-    //toString
+    //toString  
 
     @Override
     public String toString() {
-        return nombre_producto;
+        return marca_producto;
     }
-    
-    
-    
 }

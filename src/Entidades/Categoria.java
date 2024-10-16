@@ -62,7 +62,7 @@ public class Categoria {
 
     @Override
     public String toString() {
-        return "Categoria{" + "idcategoria=" + idcategoria + ", nombre=" + nombre + ", descripcion=" + descripcion + ", condicion=" + condicion + '}';
+        return nombre;
     }
     
     
