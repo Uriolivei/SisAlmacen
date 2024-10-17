@@ -42,8 +42,6 @@ public class Productos {
         this.marca_producto = marca_producto;
     }
     
-    
-    
     //getter and setter
     public int getIdproducto() {
         return idproducto;

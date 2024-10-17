@@ -12,13 +12,14 @@ public class Usuario {
     private String telefono;
     private String email;
     private String clave;
+    private String imagen;
     private boolean condicion;
 
     public Usuario() {
         
     }
 
-    public Usuario(int idusuario, int idrol, String Rolnombre, String nombre, String tipo_documento, String documento, String direccion, String telefono, String email, String clave, boolean condicion) {
+    public Usuario(int idusuario, int idrol, String Rolnombre, String nombre, String tipo_documento, String documento, String direccion, String telefono, String email, String clave, String imagen, boolean condicion) {
         this.idusuario = idusuario;
         this.idrol = idrol;
         this.Rolnombre = Rolnombre;
@@ -29,10 +30,11 @@ public class Usuario {
         this.telefono = telefono;
         this.email = email;
         this.clave = clave;
+        this.imagen = imagen;
         this.condicion = condicion;
     }
 
-    public Usuario(int idusuario, int idrol, String Rolnombre, String nombre, String tipo_documento, String documento, String direccion, String telefono, String email, boolean condicion) {
+    public Usuario(int idusuario, int idrol, String Rolnombre, String nombre, String tipo_documento, String documento, String direccion, String telefono, String email, String imagen, boolean condicion) {
         this.idusuario = idusuario;
         this.idrol = idrol;
         this.Rolnombre = Rolnombre;
@@ -42,8 +44,15 @@ public class Usuario {
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
+        this.imagen = imagen;
         this.condicion = condicion;
     }
+
+    public Usuario(String nombre, String imagen) {
+        this.nombre = nombre;
+        this.imagen = imagen;
+    }
+    
 
     public int getIdusuario() {
         return idusuario;
@@ -123,6 +132,14 @@ public class Usuario {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public boolean isCondicion() {

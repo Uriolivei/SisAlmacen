@@ -30,11 +30,11 @@ public class UsuarioControl {
         List<Usuario> lista = new ArrayList();
         lista.addAll(DATOS.listar(texto, totalPorPagina, numPagina));
         
-        String[] titulos = {"Id","Rol ID","Rol","Usuario","Documento","# Documento","Dirección","Teléfono","Email","Clave","Estado"};
+        String[] titulos = {"Id","Rol ID","Rol","Usuario","Documento","# Documento","Dirección","Teléfono","Email","Clave","Imagen","Estado"};
         this.modeloTabla=new DefaultTableModel(null,titulos);
         
         String estado;
-        String[] registro = new String[11];
+        String[] registro = new String[12];
         this.registroMostrados=0;
         
         for(Usuario item : lista){
@@ -53,7 +53,8 @@ public class UsuarioControl {
             registro[7] = item.getTelefono();
             registro[8] = item.getEmail();
             registro[9] = item.getClave();
-            registro[10] = estado;
+            registro[10] = item.getImagen();
+            registro[11] = estado;
             this.modeloTabla.addRow(registro);
             this.registroMostrados = this.registroMostrados+1;
         }
@@ -112,7 +113,7 @@ public class UsuarioControl {
     
     //metodo paar insetar datos de usarios
     public String insertar(int RolId, String nombre, String tipo_documento,String documento, String direccion, String telefono, String email, 
-            String clave){
+            String clave, String imagen){
         if(DATOS.existe(email)){
             return "El registro de Usuario ya existe";
         }else{
@@ -124,6 +125,7 @@ public class UsuarioControl {
             obj.setTelefono(telefono);
             obj.setEmail(email);
             obj.setClave(this.encriptar(clave));
+            obj.setImagen(imagen);
             if (DATOS.insertar(obj)){
                 return "OK";
             }else{
@@ -134,7 +136,7 @@ public class UsuarioControl {
     
     //metodo para actualizar datos de usuario
     public String actualizar(int id, int RolId, String nombre, String tipo_documento,String documento, String direccion, String telefono, 
-            String email, String emailAnt, String clave){
+            String email, String emailAnt, String clave, String imagen){
         if(email.equals(emailAnt)){
             obj.setIdusuario(id);
             obj.setIdrol(id);
@@ -144,6 +146,7 @@ public class UsuarioControl {
             obj.setDireccion(direccion);
             obj.setTelefono(telefono);
             obj.setEmail(email);
+            obj.setImagen(imagen);
             
             String encriptado;
             if(clave.length()==64){
@@ -169,6 +172,7 @@ public class UsuarioControl {
                 obj.setDireccion(direccion);
                 obj.setTelefono(telefono);
                 obj.setEmail(email);
+                obj.setImagen(imagen);
                 
                 String encriptado;
                 if(clave.length() == 64){

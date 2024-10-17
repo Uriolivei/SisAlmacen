@@ -25,9 +25,10 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
     List<Usuario> registros = new ArrayList<>();
     try {
         ps = CON.conectar().prepareStatement("SELECT u.idusuario, u.idrol, r.nombre AS rol_nombre, u.nombre, u.tipo_documento, "
-                + "u.documento, u.direccion, u.telefono, u.email, u.clave, u.condicion "
+                + "u.documento, u.direccion, u.telefono, u.email, u.clave, u.imagen, u.condicion "
                 + "FROM usuarios u INNER JOIN roles r ON u.idrol = r.idrol "
                 + "WHERE u.nombre LIKE ? ORDER BY u.idusuario ASC LIMIT ?, ?");
+        
         ps.setString(1, "%" + texto + "%");
         ps.setInt(2, (numPagina - 1) * totalPorPagina); 
         ps.setInt(3, totalPorPagina); 
@@ -44,7 +45,8 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
                 rs.getString("direccion"), 
                 rs.getString("telefono"), // Asegúrate de que el constructor tenga este campo
                 rs.getString("email"), 
-                rs.getString("clave"), 
+                rs.getString("clave"),
+                rs.getString("imagen"), 
                 rs.getBoolean("condicion")
             ));
         }
@@ -89,14 +91,15 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
         Usuario usu = null;
         try {
             ps = CON.conectar().prepareStatement("SELECT u.idusuario,u.idrol,r.nombre AS rol_nombre,u.nombre,u.tipo_documento,u.documento,"
-                    + "u.direccion,u.telefono,u.email,u.condicion FROM usuarios u INNER JOIN roles r ON u.idrol=r.idrol WHERE u.email=? AND clave=?");
+                    + "u.direccion,u.telefono,u.email,u.imagen,u.condicion FROM usuarios u INNER JOIN roles r ON u.idrol=r.idrol WHERE u.email=? AND clave=?");
             ps.setString(1, email);
             ps.setString(2, clave);
             rs = ps.executeQuery();
             
             if(rs.first()){
-                usu = new Usuario(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), 
-                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getBoolean(10));
+                usu = new Usuario(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), 
+                        rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), 
+                        rs.getString(9), rs.getString(10), rs.getBoolean(11));
             }
         } catch (SQLException yeji) {
             JOptionPane.showMessageDialog(null, "No se puede acceder" + yeji.getMessage());
@@ -114,7 +117,7 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
         try {
             // Cambiar a prepareStatement
             ps = CON.conectar().prepareStatement("INSERT INTO usuarios(idrol,nombre,tipo_documento,documento,direccion,telefono,email,clave,"
-                    + "condicion) VALUES(?,?,?,?,?,?,?,?,1)");
+                    + "imagen, condicion) VALUES(?,?,?,?,?,?,?,?,?,1)");
 
             ps.setInt(1, obj.getIdrol());
             ps.setString(2, obj.getNombre());
@@ -124,6 +127,7 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
             ps.setString(6, obj.getTelefono());
             ps.setString(7, obj.getEmail());
             ps.setString(8, obj.getClave());
+            ps.setString(9, obj.getImagen());
 
             if (ps.executeUpdate() > 0) {
                 resp = true;
@@ -144,7 +148,7 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
         resp = false;
         try {
             ps=CON.conectar().prepareStatement("UPDATE usuarios SET idrol=?, nombre=?,tipo_documento=?,documento=?,direccion=?,telefono=?,"
-                    + "email=?,clave=? WHERE idusuario=?");
+                    + "email=?,clave=?,imagen=? WHERE idusuario=?");
             ps.setInt(1, obj.getIdrol());
             ps.setString(2, obj.getNombre());
             ps.setString(3, obj.getTipo_documento());
@@ -153,7 +157,8 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
             ps.setString(6, obj.getTelefono());
             ps.setString(7, obj.getEmail());
             ps.setString(8, obj.getClave());
-            ps.setInt(9, obj.getIdusuario());
+            ps.setString(9, obj.getImagen() );
+            ps.setInt(10, obj.getIdusuario());
             
             if(ps.executeUpdate()>0){
                 resp=true;

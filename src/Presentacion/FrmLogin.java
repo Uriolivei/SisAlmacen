@@ -4,7 +4,12 @@
  */
 package Presentacion;
 
+import Entidades.Usuario;
 import Negocio.UsuarioControl;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
