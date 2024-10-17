@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ProductoInterface<T> {
     //métodos para el crud
-   public List<T> listar(String texto);
+   public List<T> listar(String texto,int totalPorPagina,int numPagina);
    public boolean insertar(T obj);
    public boolean actualizar(T obj);
    public boolean desactivar(int id);

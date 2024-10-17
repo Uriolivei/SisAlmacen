@@ -30,21 +30,12 @@ public class ProductoControl {
             }
             return items;
         }
-        
-        public DefaultComboBoxModel seleccionarMarca(){
-            DefaultComboBoxModel items = new DefaultComboBoxModel();
-            List<Productos> lista = new ArrayList();
-            lista = DATOSCAT.seleccionarMarca();
-            for(Productos item:lista){
-                items.addElement(new Productos(item.getIdproducto(),item.getMarca_producto()));
-            }
-            return items;
-        }
+
         
     //métodos para el giro de negocio
-    public DefaultTableModel listar(String texto){
+    public DefaultTableModel listar(String texto,int totalPorPagina,int numPagina){
         List<Productos> lista = new ArrayList();
-        lista.addAll(DATOSCAT.listar(texto));
+        lista.addAll(DATOSCAT.listar(texto, totalPorPagina, numPagina));
         
         String[] titulo={"Idproducto","Categoria","Nombre","Descripción","Imagen","Código","Marca","Cantidad","Fecha de vencimiento",
             "Precio","Condición"};
@@ -62,7 +53,7 @@ public class ProductoControl {
                 condicion="Inactivo";
             }
             registro[0]=Integer.toString(item.getIdproducto());
-            registro[1]=item.getCategoria_id();
+            registro[1]=Integer.toString(item.getCategoria_id());
             registro[2]=item.getNombre_producto();
             registro[3]=item.getDescripcion_producto();
             registro[4]=item.getImagen_producto();
@@ -77,6 +68,88 @@ public class ProductoControl {
         }
         return this.modeloTabla;
     }
+    
+    public String insertar(int categoria_id, String nombre, String descripcion, String imagen, String codigo, 
+                       String marca, int cantidad, String fecha_vencimiento, double precio_compra) {
+    try {
+        if (DATOSCAT.existe(nombre)) {
+            return "El registro ya existe.";
+        } else {
+            obj.setCategoria_id(categoria_id);
+            obj.setNombre_producto(nombre);
+            obj.setDescripcion_producto(descripcion);
+            obj.setImagen_producto(imagen);
+            obj.setCodigo_producto(codigo);
+            obj.setMarca_producto(marca);
+            obj.setCantidad_producto(cantidad);
+            obj.setFecha_vencimiento(fecha_vencimiento);
+            obj.setPrecio_compra(precio_compra);
+
+            // Insertar producto
+            if (DATOSCAT.insertar(obj)) {
+                return "OK";
+            } else {
+                return "Error en el registro.";
+            }
+        }
+    } catch (Exception e) {
+        return "Error en el registro: " + e.getMessage();
+    }
+}
+
+    
+    public String actualizar(int id, int categoria_id, String nombre, String nombreAnt, String descripcion, 
+                         String imagen, String codigo, String marca, int cantidad, String fecha_vencimiento, 
+                         double precio_compra) {
+    try {
+        // Si el nombre no ha cambiado
+        if (nombre.equals(nombreAnt)) {
+            obj.setIdproducto(id);
+            obj.setCategoria_id(categoria_id);
+            obj.setNombre_producto(nombre);
+            obj.setDescripcion_producto(descripcion);
+            obj.setImagen_producto(imagen);
+            obj.setCodigo_producto(codigo);
+            obj.setMarca_producto(marca);
+            obj.setCantidad_producto(cantidad);
+            obj.setFecha_vencimiento(fecha_vencimiento);
+            obj.setPrecio_compra(precio_compra);
+
+            // Actualizar el producto
+            if (DATOSCAT.actualizar(obj)) {
+                return "OK";
+            } else {
+                return "Error en la actualización.";
+            }
+        } else {
+            // Si el nombre ha cambiado, verificamos que no exista otro producto con el mismo nombre
+            if (DATOSCAT.existe(nombre)) {
+                return "El registro ya existe.";
+            } else {
+                obj.setIdproducto(id);
+                obj.setCategoria_id(categoria_id);
+                obj.setNombre_producto(nombre);
+                obj.setDescripcion_producto(descripcion);
+                obj.setImagen_producto(imagen);
+                obj.setCodigo_producto(codigo);
+                obj.setMarca_producto(marca);
+                obj.setCantidad_producto(cantidad);
+                obj.setFecha_vencimiento(fecha_vencimiento);
+                obj.setPrecio_compra(precio_compra);
+
+                // Actualizar el producto
+                if (DATOSCAT.actualizar(obj)) {
+                    return "OK";
+                } else {
+                    return "Error en la actualización.";
+                }
+            }
+        }
+    } catch (Exception e) {
+        return "Error en la actualización: " + e.getMessage();
+    }
+}
+
     
     public int total(){
         return DATOSCAT.total();

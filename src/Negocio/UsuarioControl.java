@@ -133,7 +133,8 @@ public class UsuarioControl {
     }
     
     //metodo para actualizar datos de usuario
-    public String actualizar(int id, int RolId, String nombre, String tipo_documento,String documento, String direccion, String telefono, String email, String emailAnt, String clave){
+    public String actualizar(int id, int RolId, String nombre, String tipo_documento,String documento, String direccion, String telefono, 
+            String email, String emailAnt, String clave){
         if(email.equals(emailAnt)){
             obj.setIdusuario(id);
             obj.setIdrol(id);
