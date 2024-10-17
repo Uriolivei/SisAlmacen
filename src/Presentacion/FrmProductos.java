@@ -100,20 +100,17 @@ public class FrmProductos extends javax.swing.JInternalFrame {
 
         this.totalRegistros = this.CONTROL.total();
 
-        // Obtener el valor seleccionado del JComboBox y verificar que no sea null
         String seleccionado = (String)cboTotalPorPagina.getSelectedItem();
-
-        // Validar que el valor seleccionado no sea null y sea un número
         if (seleccionado != null && !seleccionado.isEmpty()) {
             try {
                 this.totalPorPagina = Integer.parseInt(seleccionado);
             } catch (NumberFormatException e) {
                 System.out.println("Error: El valor seleccionado no es un número válido");
-                return; // Salir del método si no es un número válido
+                return; 
             }
         } else {
             System.out.println("Error: No se seleccionó ningún valor válido");
-            return; // Salir del método si no hay valor seleccionado
+            return;
         }
 
         totalPaginas = (int)(Math.ceil((double)this.totalRegistros / this.totalPorPagina));
@@ -405,7 +402,7 @@ public class FrmProductos extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnDesactivar)
                                 .addGap(77, 77, 77)
@@ -430,9 +427,9 @@ public class FrmProductos extends javax.swing.JInternalFrame {
                     .addComponent(cboTotalPorPagina, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(lblTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDesactivar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActivar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

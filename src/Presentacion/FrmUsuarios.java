@@ -76,21 +76,17 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         int totalPaginas;
 
         this.totalRegistros = this.CONTROL.total();
-
-        // Obtener el valor seleccionado del JComboBox y verificar que no sea null
         String seleccionado = (String)cboTotalPorPagina.getSelectedItem();
-
-        // Validar que el valor seleccionado no sea null y sea un número
         if (seleccionado != null && !seleccionado.isEmpty()) {
             try {
                 this.totalPorPagina = Integer.parseInt(seleccionado);
             } catch (NumberFormatException e) {
                 System.out.println("Error: El valor seleccionado no es un número válido");
-                return; // Salir del método si no es un número válido
+                return;
             }
         } else {
             System.out.println("Error: No se seleccionó ningún valor válido");
-            return; // Salir del método si no hay valor seleccionado
+            return; 
         }
 
         totalPaginas = (int)(Math.ceil((double)this.totalRegistros / this.totalPorPagina));

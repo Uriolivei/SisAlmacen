@@ -24,19 +24,18 @@ public class CategoriaDAO implements CategoriaInterface<Categoria> {
 
     @Override
     public List<Categoria> listar(String texto) {
-        List<Categoria> registros = new ArrayList<>();
+        List<Categoria> registros=new ArrayList();
         try {
-            ps=CON.conectar().prepareStatement("SELECT * FROM categorias WHERE nombre LIKE ?");
-            ps.setString(1, "%" + texto + "%");
+            ps=CON.conectar().prepareStatement("SELECT * FROM categorias");
             rs=ps.executeQuery();
             while(rs.next()){
-                registros.add(new Categoria(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBoolean(4)));
+                registros.add(new Categoria(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getBoolean(4)));
             }
             ps.close();
             rs.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, " No se puede mostrar datos en la tabla " + e.getMessage());
-        }finally{
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally{
             ps=null;
             rs=null;
             CON.desconectar();
@@ -134,7 +133,7 @@ public class CategoriaDAO implements CategoriaInterface<Categoria> {
           }
           rs.close();
           ps.close();
-        } catch (Exception yeji) {
+        } catch (SQLException yeji) {
             JOptionPane.showMessageDialog(null,"No se puede obtener el total de categorias" + yeji.getMessage());
         }finally{
             ps=null;

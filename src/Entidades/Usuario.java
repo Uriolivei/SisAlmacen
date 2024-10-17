@@ -48,12 +48,12 @@ public class Usuario {
         this.condicion = condicion;
     }
 
-    public Usuario(String nombre, String imagen) {
+    public Usuario(int idusuario, String nombre, String imagen) {
+        this.idusuario = idusuario;
         this.nombre = nombre;
         this.imagen = imagen;
     }
     
-
     public int getIdusuario() {
         return idusuario;
     }

@@ -26,6 +26,7 @@ public class FrmLogin extends javax.swing.JFrame {
         this.setTitle("Acceso al Sistema");
         this.setLocationRelativeTo(null);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
