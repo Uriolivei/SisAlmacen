@@ -101,28 +101,7 @@ public class Principal extends javax.swing.JFrame {
                 frmproductos.toFront();
             }
         });
-        
-        /*menu1.setForeground(Color.BLACK);
-        menu1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Solo cambia a naranja si no está seleccionado
-                menu1.setForeground(Color.BLACK); // Color al pasar el ratón
-            }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // No hacer nada al salir, ya que se mantiene en naranja si se hizo clic
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Cambiar el color al hacer clic
-                menu1.setForeground(Color.ORANGE);
-            }
-        });*/
-
-        
         JMenu menu2 = new JMenu("Compras");
         JMenuItem item3 = new JMenuItem("Proveedores");
         JMenuItem item4 = new JMenuItem("Ingresos");
@@ -165,26 +144,6 @@ public class Principal extends javax.swing.JFrame {
                 frmingresos.toFront();
             }
         });
-        
-        /*menu2.setForeground(Color.BLACK);
-        menu2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                menu2.setForeground(Color.BLACK); // Color al pasar el ratón
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Regresa al color negro al salir
-                //menu2.setForeground(Color.ORANGE);
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Cambiar el color de menu1 a negro al hacer clic en menu2
-                menu1.setForeground(Color.ORANGE);
-            }
-        });*/
         
         JMenu menu3 = new JMenu("Ventas");
         JMenuItem item5 = new JMenuItem("Clientes");
@@ -229,26 +188,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         
-        /*menu3.setForeground(Color.BLACK);
-        menu3.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                menu3.setForeground(Color.BLACK); // Color al pasar el ratón
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Regresa al color negro al salir
-                //menu3.setForeground(Color.ORANGE);
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Cambiar el color de menu1 a negro al hacer clic en menu2
-                menu2.setForeground(Color.ORANGE);
-            }
-        });*/
-        
         JMenu menu4 = new JMenu("Accesos");
         JMenuItem item7 = new JMenuItem("Roles");
         JMenuItem item8 = new JMenuItem("Usuarios");
@@ -292,26 +231,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         
-        /*menu4.setForeground(Color.BLACK);
-        menu4.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                menu4.setForeground(Color.BLACK); // Color al pasar el ratón
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Regresa al color negro al salir
-                //menu4.setForeground(Color.ORANGE);
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Cambiar el color de menu1 a negro al hacer clic en menu2
-                menu3.setForeground(Color.ORANGE);
-            }
-        });*/
-        
         JMenu menu5 = new JMenu("Consultas");
         JMenuItem item9 = new JMenuItem("Consultas Compras");
         JMenuItem item10 = new JMenuItem("Consultas Ventas");
@@ -354,26 +273,6 @@ public class Principal extends javax.swing.JFrame {
                 frmconsultasventas.toFront();
             }
         });
-        
-        /*menu5.setForeground(Color.BLACK);
-        menu5.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                menu4.setForeground(Color.BLACK); // Color al pasar el ratón
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Regresa al color negro al salir
-                //menu5.setForeground(Color.ORANGE);
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Cambiar el color de menu1 a negro al hacer clic en menu2
-                menu5.setForeground(Color.ORANGE);
-            }
-        });*/
 
         getContentPane().add(sidePanel, BorderLayout.WEST);
         
@@ -402,7 +301,8 @@ public class Principal extends javax.swing.JFrame {
                 activeMenu = menu; // Actualizar el menú activo
             }
         });
-    }
+}
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -479,9 +379,9 @@ public class Principal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(159, Short.MAX_VALUE)
+                .addContainerGap(181, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
+                .addGap(79, 79, 79)
                 .addComponent(lblSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -537,7 +437,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 

@@ -30,7 +30,8 @@ public class UsuarioControl {
         List<Usuario> lista = new ArrayList();
         lista.addAll(DATOS.listar(texto, totalPorPagina, numPagina));
         
-        String[] titulos = {"Id","Rol","ID","Rol","Usuario","Documento","Dirección","Teléfono","Email","Clave","Estado"};
+        String[] titulos = {"Id","Rol ID","Rol","Usuario","Documento","# Documento","Dirección","Teléfono","Email","Clave","Estado"};
+        this.modeloTabla=new DefaultTableModel(null,titulos);
         
         String estado;
         String[] registro = new String[11];
@@ -79,20 +80,23 @@ public class UsuarioControl {
     }
     
     //metodo para poder encriptar contraseña
-    public static String encriptar(String valor){
+    private static String encriptar(String valor){
         MessageDigest md;
-        try {
-            md = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException yeji) {
-            return null;
-        }
-        
-        byte[] hash = md.digest(valor.getBytes());
-        StringBuilder sb = new StringBuilder();
-        for(byte b : hash){
-            sb.append(String.format("%02x", b));  
-        }
-        return sb.toString();
+	try {
+		md = MessageDigest.getInstance("SHA-256");
+	} 
+	catch (NoSuchAlgorithmException e) {		
+		return null;
+	}
+	    
+	byte[] hash = md.digest(valor.getBytes());
+	StringBuilder sb = new StringBuilder();
+	    
+	for(byte b : hash) {        
+		sb.append(String.format("%02x", b));
+	}
+	    
+	return sb.toString();
     }
     
     //metodo para seleccionar un Rol
@@ -107,7 +111,8 @@ public class UsuarioControl {
     }
     
     //metodo paar insetar datos de usarios
-    public String insertar(int RolId, String nombre, String tipo_documento,String documento, String direccion, String telefono, String email, String clave){
+    public String insertar(int RolId, String nombre, String tipo_documento,String documento, String direccion, String telefono, String email, 
+            String clave){
         if(DATOS.existe(email)){
             return "El registro de Usuario ya existe";
         }else{
@@ -119,8 +124,12 @@ public class UsuarioControl {
             obj.setTelefono(telefono);
             obj.setEmail(email);
             obj.setClave(this.encriptar(clave));
+            if (DATOS.insertar(obj)){
+                return "OK";
+            }else{
+                return "Error en el registro.";
+            }
         }
-        return "EROR al registrar Usuario";
     }
     
     //metodo para actualizar datos de usuario
@@ -131,6 +140,7 @@ public class UsuarioControl {
             obj.setNombre(nombre);
             obj.setTipo_documento(tipo_documento);
             obj.setDocumento(documento);
+            obj.setDireccion(direccion);
             obj.setTelefono(telefono);
             obj.setEmail(email);
             
@@ -155,6 +165,7 @@ public class UsuarioControl {
                 obj.setNombre(nombre);
                 obj.setTipo_documento(tipo_documento);
                 obj.setDocumento(documento);
+                obj.setDireccion(direccion);
                 obj.setTelefono(telefono);
                 obj.setEmail(email);
                 

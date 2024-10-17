@@ -18,6 +18,7 @@ public class FrmLogin extends javax.swing.JFrame {
      */
     public FrmLogin() {
         initComponents();
+        this.setTitle("Acceso al Sistema");
         this.setLocationRelativeTo(null);
     }
 
@@ -75,23 +76,30 @@ public class FrmLogin extends javax.swing.JFrame {
         });
         jPanel1.add(jch_eye, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, -1, 30));
 
+        btnIngresar.setBackground(new java.awt.Color(0, 204, 204));
+        btnIngresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/ingresar.png"))); // NOI18N
         btnIngresar.setText("INGRESAR");
+        btnIngresar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, 90, 40));
+        jPanel1.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 160, 50));
 
+        btnCancelar.setBackground(new java.awt.Color(0, 204, 51));
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/cancelar.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
+        btnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, 100, 40));
-
-        jpassword.setText("jPasswordField1");
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 140, 50));
         jPanel1.add(jpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 180, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/fondo.png"))); // NOI18N

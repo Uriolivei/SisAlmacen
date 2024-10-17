@@ -59,6 +59,39 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
     //metodo paginar
     private void paginar(){
         int totalPaginas;
+
+        this.totalRegistros = this.CONTROL.total();
+
+        // Obtener el valor seleccionado del JComboBox y verificar que no sea null
+        String seleccionado = (String)cboTotalPorPagina.getSelectedItem();
+
+        // Validar que el valor seleccionado no sea null y sea un número
+        if (seleccionado != null && !seleccionado.isEmpty()) {
+            try {
+                this.totalPorPagina = Integer.parseInt(seleccionado);
+            } catch (NumberFormatException e) {
+                System.out.println("Error: El valor seleccionado no es un número válido");
+                return; // Salir del método si no es un número válido
+            }
+        } else {
+            System.out.println("Error: No se seleccionó ningún valor válido");
+            return; // Salir del método si no hay valor seleccionado
+        }
+
+        totalPaginas = (int)(Math.ceil((double)this.totalRegistros / this.totalPorPagina));
+
+        if (totalPaginas == 0) {
+            totalPaginas = 1;
+        }
+
+        cboNumPagina.removeAllItems();
+
+        for (int i = 1; i <= totalPaginas; i++) {
+            cboNumPagina.addItem(Integer.toString(i));
+        }
+        cboNumPagina.setSelectedIndex(0);
+
+        /*int totalPaginas;
         
         this.totalRegistros=this.CONTROL.total();
         this.totalPorPagina=Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
@@ -71,50 +104,51 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         for (int i = 1; i <= totalPaginas; i++) {
             cboNumPagina.addItem(Integer.toString(i));
         }
-        cboNumPagina.setSelectedIndex(0);
+        cboNumPagina.setSelectedIndex(0);*/
     }
     
     //metodo para listar la tabla ususario
-    private void listar(String texto, boolean paginar){
-         Object selectedItem = cboTotalPorPagina.getSelectedItem();
-        if (selectedItem != null) {
-            try {
-                this.totalPorPagina = Integer.parseInt(selectedItem.toString());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Error al convertir el total por página: " + e.getMessage());
-                return; 
+    private void listar(String texto, boolean paginar) {
+        try {
+            // Obtener totalPorPagina de cboTotalPorPagina
+            String totalPorPaginaStr = (String) cboTotalPorPagina.getSelectedItem();
+            if (totalPorPaginaStr != null && !totalPorPaginaStr.isEmpty()) {
+                this.totalPorPagina = Integer.parseInt(totalPorPaginaStr);
+            } else {
+                
+                this.totalPorPagina = 10; 
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, selecciona un total por página válido.");
-            return; 
-        }
 
-        Object selectedPageItem = cboNumPagina.getSelectedItem();
-        if (selectedPageItem != null) {
-            try {
-                this.numPagina = Integer.parseInt(selectedPageItem.toString());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Error al convertir el número de página: " + e.getMessage());
-                return; // Salir del método si hay un error
+            String numPaginaStr = (String) cboNumPagina.getSelectedItem();
+            if (numPaginaStr != null && !numPaginaStr.isEmpty()) {
+                this.numPagina = Integer.parseInt(numPaginaStr);
+            } else {
+                
+                this.numPagina = 1;
             }
-        } else {
-            this.numPagina = 1;
-        }
 
-        // Listar datos en la tabla
-        if (paginar) {
-            tablaListado.setModel(this.CONTROL.listar(texto, this.totalPorPagina, this.numPagina));
-        } else {
-            tablaListado.setModel(this.CONTROL.listar(texto, this.totalPorPagina, 1));
-        }
+            if (paginar) {
+                tablaListado.setModel(this.CONTROL.listar(texto, this.totalPorPagina, this.numPagina));
+            } else {
+                tablaListado.setModel(this.CONTROL.listar(texto, this.totalPorPagina, 1));
+            }
 
-        // Configuración de la tabla
-        TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
-        tablaListado.setRowSorter(orden);
-        this.ocultarColumnas();
-        lblTotalRegistros.setText("Mostrando " + this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");
+            TableRowSorter orden = new TableRowSorter(tablaListado.getModel());
+            tablaListado.setRowSorter(orden);
+
+            this.ocultarColumnas();
+            lblTotalRegistros.setText("Mostrando " + this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");
+
+        } catch (NumberFormatException e) {
+            System.out.println("Error al convertir los valores seleccionados: " + e.getMessage());
+            
+        } catch (Exception e) {
+            System.out.println("Se ha producido un error: " + e.getMessage());
+            
+        }
     
-        /*this.totalPorPagina=Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
+    /*private void listar(String texto, boolean paginar){
+        this.totalPorPagina=Integer.parseInt((String)cboTotalPorPagina.getSelectedItem());
         if ((String)cboNumPagina.getSelectedItem()!=null){
             this.numPagina=Integer.parseInt((String)cboNumPagina.getSelectedItem());
         }
@@ -132,7 +166,7 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         lblTotalRegistros.setText("Mostrando " + this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");*/
     }
     
-    //metod para cargar roles
+    //metodo para cargar roles
     private void cargarRoles(){
         DefaultComboBoxModel items = this.CONTROL.seleccionar();
         cboRol.setModel(items);
@@ -804,8 +838,9 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         if (this.accion.equals("editar")){
             //Editar
             Rol seleccionado = (Rol)cboRol.getSelectedItem();
-            resp=this.CONTROL.actualizar(Integer.parseInt(txtId.getText()),seleccionado.getIdrol(),txtNombre.getText(),(String)cboDocumento.getSelectedItem(),
-                    txtDNI.getText(),txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText(),this.emailAnt,txtClave.getText());
+            resp=this.CONTROL.actualizar(Integer.parseInt(txtId.getText()),seleccionado.getIdrol(),txtNombre.getText(),
+                    (String)cboDocumento.getSelectedItem(),txtDNI.getText(),txtDireccion.getText(),txtTelefono.getText(),
+                    txtEmail.getText(),this.emailAnt,txtClave.getText());
             if(resp.equals("OK")){
                 this.mensajeOk("Actualizado correctamente");
                 this.limpiar();
@@ -819,19 +854,20 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
         }else{
             //guardar
             Rol seleccionado = (Rol)cboRol.getSelectedItem();
-            resp=this.CONTROL.insertar(seleccionado.getIdrol(),txtNombre.getText(),(String)cboDocumento.getSelectedItem(),txtDNI.getText(),
-                    txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText(),txtClave.getText());
+            resp=this.CONTROL.insertar(seleccionado.getIdrol(),txtNombre.getText(),(String)cboDocumento.getSelectedItem(),
+                    txtDNI.getText(),txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText(),
+                    txtClave.getText());
             if(resp.equals("OK")){
                 this.mensajeOk("Registrado correctamente");
                 this.limpiar();
                 this.listar("",false);                
-                /*tabGeneral.setSelectedIndex(0);
+                tabGeneral.setSelectedIndex(0);
                 tabGeneral.setEnabledAt(1, false);
-                tabGeneral.setEnabledAt(0, true);*/
+                tabGeneral.setEnabledAt(0, true);
             }else{
                 this.mensajeError(resp);
             }
-        }        
+        } 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

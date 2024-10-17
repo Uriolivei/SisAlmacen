@@ -22,7 +22,46 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
 
     @Override
     public List<Usuario> listar(String texto, int totalPorPagina, int numPagina) {
-        List<Usuario> registros = new ArrayList();
+    List<Usuario> registros = new ArrayList<>();
+    try {
+        ps = CON.conectar().prepareStatement("SELECT u.idusuario, u.idrol, r.nombre AS rol_nombre, u.nombre, u.tipo_documento, "
+                + "u.documento, u.direccion, u.telefono, u.email, u.clave, u.condicion "
+                + "FROM usuarios u INNER JOIN roles r ON u.idrol = r.idrol "
+                + "WHERE u.nombre LIKE ? ORDER BY u.idusuario ASC LIMIT ?, ?");
+        ps.setString(1, "%" + texto + "%");
+        ps.setInt(2, (numPagina - 1) * totalPorPagina); 
+        ps.setInt(3, totalPorPagina); 
+        rs = ps.executeQuery();
+        
+        while (rs.next()) {
+            registros.add(new Usuario(
+                rs.getInt("idusuario"), 
+                rs.getInt("idrol"), 
+                rs.getString("rol_nombre"),
+                rs.getString("nombre"), 
+                rs.getString("tipo_documento"), 
+                rs.getString("documento"), 
+                rs.getString("direccion"), 
+                rs.getString("telefono"), // Asegúrate de que el constructor tenga este campo
+                rs.getString("email"), 
+                rs.getString("clave"), 
+                rs.getBoolean("condicion")
+            ));
+        }
+    } catch (SQLException yeji) {
+        JOptionPane.showMessageDialog(null, "No se puede ver la lista de usuarios: " + yeji.getMessage());
+    } finally {
+        // Cerrar recursos de manera ordenada
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            CON.desconectar();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cerrar recursos: " + e.getMessage());
+        }
+    }
+    return registros;
+        /*List<Usuario> registros = new ArrayList();
         try {
             ps=CON.conectar().prepareStatement("SELECT u.idusuario,u.idrol,r.nombre AS rol_nombre,u.nombre,u.tipo_documento,u.documento,u.direccion,u.email,u.clave,"
                     + "u.condicion FROM usuarios u INNER JOIN roles r ON u.idrol = r.idrol WHERE u.nombre LIKE ? ORDER BY u.idusuario ASC LIMIT ?, ?");
@@ -42,14 +81,15 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
             rs=null;
             CON.desconectar();
         }
-        return registros;
+        return registros;*/
     }
     
     //metodo del login
     public Usuario login(String email, String clave){
         Usuario usu = null;
         try {
-            ps = CON.conectar().prepareStatement("SELECT u.idusuario,u.idrol,r.nombre AS rol_nombre,u.nombre,u.tipo_documento,u.documento,u.direccion,u.telefono,u.email,u.condicion FROM usuarios u INNER JOIN roles r ON u.idrol=r.idrol WHERE u.email=? AND clave=?");
+            ps = CON.conectar().prepareStatement("SELECT u.idusuario,u.idrol,r.nombre AS rol_nombre,u.nombre,u.tipo_documento,u.documento,"
+                    + "u.direccion,u.telefono,u.email,u.condicion FROM usuarios u INNER JOIN roles r ON u.idrol=r.idrol WHERE u.email=? AND clave=?");
             ps.setString(1, email);
             ps.setString(2, clave);
             rs = ps.executeQuery();
@@ -72,8 +112,10 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
     public boolean insertar(Usuario obj) {
         resp = false;
         try {
-            ps=CON.conectar().prepareCall("INSERT INTO usuarios(idrol,nombre,tipo_documento,documento,direccion,telefono,email,clave,condicion) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?)");
+            // Cambiar a prepareStatement
+            ps = CON.conectar().prepareStatement("INSERT INTO usuarios(idrol,nombre,tipo_documento,documento,direccion,telefono,email,clave,"
+                    + "condicion) VALUES(?,?,?,?,?,?,?,?,1)");
+
             ps.setInt(1, obj.getIdrol());
             ps.setString(2, obj.getNombre());
             ps.setString(3, obj.getTipo_documento());
@@ -82,26 +124,27 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
             ps.setString(6, obj.getTelefono());
             ps.setString(7, obj.getEmail());
             ps.setString(8, obj.getClave());
-            
-            if(ps.executeUpdate()>0){
+
+            if (ps.executeUpdate() > 0) {
                 resp = true;
             }
             ps.close();
-            
+
         } catch (SQLException yeji) {
-            JOptionPane.showMessageDialog(null, "No se puede registrar usuario" + yeji.getMessage());
-        }finally{
-            ps=null;
+            JOptionPane.showMessageDialog(null, "No se puede registrar usuario: " + yeji.getMessage());
+        } finally {
+            ps = null;
             CON.desconectar();
         }
         return resp;
-    }
+}
 
     @Override
     public boolean actualizar(Usuario obj) {
         resp = false;
         try {
-            ps=CON.conectar().prepareStatement("UPDATE usuarios SET idrol=?, nombre,=?,tipo_documento=?,documento=?,direccion=?,telefono=?,emai=?,clave=? WHERE idusuario=?");
+            ps=CON.conectar().prepareStatement("UPDATE usuarios SET idrol=?, nombre=?,tipo_documento=?,documento=?,direccion=?,telefono=?,"
+                    + "email=?,clave=? WHERE idusuario=?");
             ps.setInt(1, obj.getIdrol());
             ps.setString(2, obj.getNombre());
             ps.setString(3, obj.getTipo_documento());
@@ -188,7 +231,7 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
     public boolean existe(String texto) {
         resp = false;
         try {
-            ps =CON.conectar().prepareStatement("SELECT email FROM usuario WHERE email=?");
+            ps =CON.conectar().prepareStatement("SELECT email FROM usuarios WHERE email=?");
             ps.setString(1, texto);
             rs=ps.executeQuery();
             rs.last();
@@ -206,4 +249,5 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
         }
          return resp;
     }
+
 }
