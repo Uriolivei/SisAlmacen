@@ -320,13 +320,8 @@
                                           <Component id="txtEmail" max="32767" attributes="0"/>
                                           <Component id="txtNombre" alignment="1" min="-2" pref="220" max="-2" attributes="0"/>
                                           <Component id="cboRol" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="lblEmail" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                                  <Component id="lblDireccion" min="-2" pref="204" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="lblEmail" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                          <Component id="lblDireccion" min="-2" pref="204" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="76" pref="76" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">

@@ -118,10 +118,8 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
     public boolean insertar(Usuario obj) {
         resp = false;
         try {
-            // Cambiar a prepareStatement
             ps = CON.conectar().prepareStatement("INSERT INTO usuarios(idrol,nombre,tipo_documento,documento,direccion,telefono,email,clave,"
                     + "imagen, condicion) VALUES(?,?,?,?,?,?,?,?,?,1)");
-
             ps.setInt(1, obj.getIdrol());
             ps.setString(2, obj.getNombre());
             ps.setString(3, obj.getTipo_documento());

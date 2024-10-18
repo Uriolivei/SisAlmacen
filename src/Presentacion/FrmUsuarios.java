@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
@@ -120,21 +121,21 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
     
     private void subirImagenes() {
         File origen=new File(this.rutaOrigen);
-            File destino=new File(this.rutaDestino);
-            try {
-                InputStream in= new FileInputStream(origen);
-                OutputStream out=new FileOutputStream(destino);
-                byte[] buf = new byte[1024];
-                int len;
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-                in.close();
-                out.close();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
+        File destino=new File(this.rutaDestino);
+        try {
+            InputStream in= new FileInputStream(origen);
+            OutputStream out=new FileOutputStream(destino);
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
             }
-}
+            in.close();
+            out.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
     
     //metodo para listar la tabla ususario
     private void listar(String texto, boolean paginar) {
@@ -935,17 +936,16 @@ public class FrmUsuarios extends javax.swing.JInternalFrame {
             Rol seleccionado = (Rol)cboRol.getSelectedItem();
             resp=this.CONTROL.insertar(seleccionado.getIdrol(),txtNombre.getText(),(String)cboDocumento.getSelectedItem(),
                     txtDNI.getText(),txtDireccion.getText(),txtTelefono.getText(),txtEmail.getText(),
-                    txtClave.getText(),lblImagen.getText());
+                    txtClave.getText(),this.imagen);
+            System.out.println("Nombre de la imagen al guardar: " + lblImagen.getText());
             if(resp.equals("OK")){
                 if (!this.imagen.isEmpty()) {
-                this.subirImagenes();  // Subir las nuevas imágenes si las hay
+                    this.subirImagenes();  // Subir las nuevas imágenes si las hay
             }
                 this.mensajeOk("Registrado correctamente");
                 this.limpiar();
                 this.listar("",false);                
                 tabGeneral.setSelectedIndex(0);
-                tabGeneral.setEnabledAt(1, false);
-                tabGeneral.setEnabledAt(0, true);
             }else{
                 this.mensajeError(resp);
             }

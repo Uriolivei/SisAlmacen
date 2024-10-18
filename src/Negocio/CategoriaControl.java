@@ -57,7 +57,7 @@ public class CategoriaControl {
             obj.setNombre(nombre);
             obj.setDescripcion(descripcion);
             if(DATOS.insertar(obj)){
-                return "Oki doki domi doki";
+                return "OK";
             }else{
                 return "Error al registar Categoria";
             }
@@ -71,7 +71,7 @@ public class CategoriaControl {
             obj.setNombre(nombre);
             obj.setDescripcion(descripcion);
             if(DATOS.actualizar(obj)){
-                return "Oki doki domi doki";
+                return "OK";
             }else{
                 return "Error en la actualización";
             }
@@ -83,7 +83,7 @@ public class CategoriaControl {
                 obj.setNombre(nombre);
                 obj.setDescripcion(descripcion);
                 if(DATOS.actualizar(obj)){
-                    return "Oki doki domi doki";
+                    return "OK";
                 }else{
                     return "ERROR en la actualización";
                 }
@@ -104,7 +104,7 @@ public class CategoriaControl {
     //metodo para desactivar
     public String desactivar(int id){
         if(DATOS.desactivar(id)){
-            return "Oki doki domi doki";
+            return "OK";
         }else{
             return "No se puede desactivar la categoría";
         }
@@ -113,7 +113,7 @@ public class CategoriaControl {
     //metodo para activar
     public String activar(int id){
         if(DATOS.activar(id)){
-            return "Oki doki domi doki";
+            return "OK";
         }else{
             return "No se puede activar la categoría";
         }

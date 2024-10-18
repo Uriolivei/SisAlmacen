@@ -888,18 +888,8 @@ public class FrmProductos extends javax.swing.JInternalFrame {
     if (this.accion.equals("editar")) {
         // Actualizar registro existente
         String imagenActual = this.imagen.isEmpty() ? this.imagenAnt : this.imagen;  // Si no hay imagen nueva, usar la anterior
-        resp = this.CONTROL.actualizar(
-                Integer.parseInt(txtId.getText()), 
-                categoria_id, 
-                nombre, 
-                this.nombreAnt, 
-                descripcion, 
-                imagenActual, 
-                codigo, 
-                marca, 
-                cantidad, 
-                fecha_vencimiento, 
-                precio_compra
+        resp = this.CONTROL.actualizar(Integer.parseInt(txtId.getText()), categoria_id, nombre, this.nombreAnt, descripcion, 
+                imagenActual, codigo, marca, cantidad, fecha_vencimiento,precio_compra
         );
         if (resp.equals("OK")) {
             if (!this.imagen.isEmpty()) {
@@ -915,15 +905,7 @@ public class FrmProductos extends javax.swing.JInternalFrame {
     } else {
         // Insertar un nuevo registro
         resp = this.CONTROL.insertar(
-                categoria_id, 
-                nombre, 
-                descripcion, 
-                this.imagen, 
-                codigo, 
-                marca, 
-                cantidad, 
-                fecha_vencimiento, 
-                precio_compra
+                categoria_id, nombre, descripcion, this.imagen, codigo, marca,  cantidad, fecha_vencimiento, precio_compra
         );
         if (resp.equals("OK")) {
             if (!this.imagen.isEmpty()) {
