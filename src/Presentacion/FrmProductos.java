@@ -485,6 +485,9 @@ public class FrmProductos extends javax.swing.JInternalFrame {
             }
         });
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyTyped(evt);
             }
@@ -504,6 +507,9 @@ public class FrmProductos extends javax.swing.JInternalFrame {
             }
         });
         txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPrecioKeyTyped(evt);
             }
@@ -1050,6 +1056,38 @@ public class FrmProductos extends javax.swing.JInternalFrame {
             txtPrecio.setText("Digite el precio");
         }
     }//GEN-LAST:event_txtPrecioFocusLost
+
+    private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
+        // TODO add your handling code here:
+        String texto = txtCantidad.getText();
+        if(texto.length()>0 && texto.charAt(0) == '-'){
+            txtCantidad.setText(texto.substring(1));
+        }
+        try {
+            double numero = Double.parseDouble(texto);
+            if(numero < 0){
+                txtCantidad.setText("");
+            }
+        } catch (NumberFormatException e) {
+            txtCantidad.setText("");
+        }
+    }//GEN-LAST:event_txtCantidadKeyReleased
+
+    private void txtPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyReleased
+        // TODO add your handling code here:
+        String texto = txtPrecio.getText();
+        if(texto.length()>0 && texto.charAt(0) == '-'){
+            txtPrecio.setText(texto.substring(1));
+        }
+        try {
+            double numero = Double.parseDouble(texto);
+            if(numero < 0){
+                txtPrecio.setText("");
+            }
+        } catch (NumberFormatException e) {
+            txtPrecio.setText("");
+        }
+    }//GEN-LAST:event_txtPrecioKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

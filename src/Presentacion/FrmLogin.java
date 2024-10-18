@@ -6,9 +6,6 @@ package Presentacion;
 
 import Entidades.Usuario;
 import Negocio.UsuarioControl;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,8 +13,8 @@ import javax.swing.JOptionPane;
  * @author SENATI
  */
 public class FrmLogin extends javax.swing.JFrame {
-    private JLabel lblNombre; // Asegúrate de que esto esté declarado
-     private JLabel lblImagen;
+    //private JLabel lblNombre; // Asegúrate de que esto esté declarado
+     //private JLabel lblImagen;
      private Usuario usuario;
     /**
      * Creates new form FrmLogin
@@ -26,10 +23,10 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Acceso al Sistema");
         this.setLocationRelativeTo(null);
-        lblNombre = new JLabel(); 
-        lblImagen = new JLabel();
+        
     }
     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,35 +134,36 @@ public class FrmLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jch_eyeMouseClicked
 
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
-        String email = txtEmail.getText();
-    String clave = new String(txtClave.getPassword());
-
-    // Aquí deberías realizar la validación real con la base de datos
-    if (validarCredenciales(email, clave)) {
-        // Supongamos que has validado al usuario correctamente y lo recuperas
-        usuario = new Usuario(1, "John Doe", "imagen.png"); // Ejemplo de creación del usuario
-
-        // Crear la ventana principal y pasar el objeto usuario
-        Principal principal = new Principal();
-        principal.setVisible(true);
-        this.dispose(); // Cerrar el formulario de login
-    } else {
-        JOptionPane.showMessageDialog(this, "Credenciales incorrectas.");
-    }
-}
-
-// Ejemplo de método para validar credenciales (deberías reemplazarlo con tu lógica real)
-private boolean validarCredenciales(String email, String clave) {
-    // Aquí iría la lógica para validar el email y la clave desde la base de datos
-    return email.equals("jefe@gmail.com") && clave.equals("admin1108");
-    }//GEN-LAST:event_btnIngresarActionPerformed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        // TODO add your handling code here:
+        if(txtEmail.getText().length()==0 || txtEmail.getText().length()>50){
+            JOptionPane.showMessageDialog(this,"Debes ingresar un email, y este no debe superar los 50 caracteres.","Sistema",JOptionPane.WARNING_MESSAGE);
+            txtEmail.requestFocus();
+            return;
+        }
+        if(txtClave.getText().length()==0 || txtClave.getText().length()>64){
+            JOptionPane.showMessageDialog(this,"Debes ingresar una clave de acceso, y este no debe superar los 64 caracteres.","Sistema",JOptionPane.WARNING_MESSAGE);
+            txtClave.requestFocus();
+            return;
+        }
+        UsuarioControl control=new UsuarioControl();
+        String resp=control.login(txtEmail.getText(), txtClave.getText());
+        if (resp.equals("1")){
+            Principal frm=new Principal();
+            frm.setVisible(true); 
+            this.dispose();
+            frm.toFront();
+        }else if(resp.equals("2")){
+            JOptionPane.showMessageDialog(this,"Usuario no tiene acceso.","Sistema",JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this,"Los datos de acceso son incorrectos.","Sistema",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments

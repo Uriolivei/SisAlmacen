@@ -10,7 +10,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +18,6 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -31,9 +29,6 @@ import javax.swing.KeyStroke;
  */
 public class Principal extends javax.swing.JFrame {
      private JMenu activeMenu;
-     private Usuario usuario;
-     
-     //private final Map<JMenu, Color> menuColors = new HashMap<>();
      
     /**
      * Creates new form Principal
@@ -43,26 +38,7 @@ public class Principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         lblFecha.setText(fecha());
         //setExtendedState(MAXIMIZED_BOTH);//Expandir la ventana al 100%
-        mostrarInformacionUsuario(usuario);
-        
-        if (this.usuario != null) {
-            lblNombre.setText("Bienvenido, " + this.usuario.getNombre());
 
-            // Cargar la imagen del usuario desde la ruta
-            if (this.usuario.getImagen() != null && !this.usuario.getImagen().isEmpty()) {
-                String rutaCompleta = "src/files/usuarios/" + this.usuario.getImagen();
-                ImageIcon icon = new ImageIcon(rutaCompleta);
-                Image img = icon.getImage();
-                Image imgScaled = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-                lblImagen.setIcon(new ImageIcon(imgScaled)); // Mostrar la imagen en el JLabel
-            } else {
-                System.out.println("No se encontró la imagen del usuario.");
-            }
-        } else {
-            System.out.println("El usuario es null.");
-        }
-        
-        
         //Imagenes
         ImageIcon icon = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/box_1.png"));
         ImageIcon icon1 = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/buy.png"));
@@ -327,21 +303,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });      
 }
-
-    private void mostrarInformacionUsuario(Usuario usuario) {
-    lblNombre.setText("Bienvenido, " + usuario.getNombre()); // Muestra el nombre
-
-    // Cargar la imagen del usuario desde la ruta
-    if (usuario.getImagen() != null && !usuario.getImagen().isEmpty()) {
-        String rutaCompleta = "src/files/usuarios/" + usuario.getImagen();
-        ImageIcon icon = new ImageIcon(rutaCompleta);
-        Image img = icon.getImage();
-        Image imgScaled = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-        lblImagen.setIcon(new ImageIcon(imgScaled)); // Mostrar la imagen en el JLabel
-    } else {
-        System.out.println("No se encontró la imagen del usuario."); // Mensaje de depuración
-    }
-}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -468,11 +429,11 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(lblNombre))
                             .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(lblNombre)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Escritorio)
@@ -485,12 +446,13 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Escritorio))
             .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 

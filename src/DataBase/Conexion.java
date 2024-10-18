@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;//para ocultar errores de conexion a la DB
 
 public class Conexion {
+    
     //variables
     private final String DRIVER="com.mysql.jdbc.Driver";
     private final String URL="jdbc:mysql://localhost:3306/";
