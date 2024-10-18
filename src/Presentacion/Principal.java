@@ -5,10 +5,12 @@
 package Presentacion;
 
 
+import Entidades.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,9 +18,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -30,7 +31,10 @@ import javax.swing.KeyStroke;
  */
 public class Principal extends javax.swing.JFrame {
      private JMenu activeMenu;
-     private final Map<JMenu, Color> menuColors = new HashMap<>();
+     private Usuario usuario;
+     
+     //private final Map<JMenu, Color> menuColors = new HashMap<>();
+     
     /**
      * Creates new form Principal
      */
@@ -39,6 +43,25 @@ public class Principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         lblFecha.setText(fecha());
         //setExtendedState(MAXIMIZED_BOTH);//Expandir la ventana al 100%
+        mostrarInformacionUsuario(usuario);
+        
+        if (this.usuario != null) {
+            lblNombre.setText("Bienvenido, " + this.usuario.getNombre());
+
+            // Cargar la imagen del usuario desde la ruta
+            if (this.usuario.getImagen() != null && !this.usuario.getImagen().isEmpty()) {
+                String rutaCompleta = "src/files/usuarios/" + this.usuario.getImagen();
+                ImageIcon icon = new ImageIcon(rutaCompleta);
+                Image img = icon.getImage();
+                Image imgScaled = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                lblImagen.setIcon(new ImageIcon(imgScaled)); // Mostrar la imagen en el JLabel
+            } else {
+                System.out.println("No se encontró la imagen del usuario.");
+            }
+        } else {
+            System.out.println("El usuario es null.");
+        }
+        
         
         //Imagenes
         ImageIcon icon = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/box_1.png"));
@@ -302,9 +325,23 @@ public class Principal extends javax.swing.JFrame {
                 menu.setForeground(color); // Cambiar el color del menú actual a naranja
                 activeMenu = menu; // Actualizar el menú activo
             }
-        });
+        });      
 }
-    
+
+    private void mostrarInformacionUsuario(Usuario usuario) {
+    lblNombre.setText("Bienvenido, " + usuario.getNombre()); // Muestra el nombre
+
+    // Cargar la imagen del usuario desde la ruta
+    if (usuario.getImagen() != null && !usuario.getImagen().isEmpty()) {
+        String rutaCompleta = "src/files/usuarios/" + usuario.getImagen();
+        ImageIcon icon = new ImageIcon(rutaCompleta);
+        Image img = icon.getImage();
+        Image imgScaled = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        lblImagen.setIcon(new ImageIcon(imgScaled)); // Mostrar la imagen en el JLabel
+    } else {
+        System.out.println("No se encontró la imagen del usuario."); // Mensaje de depuración
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -378,7 +415,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("SISTEMA DE INVENTARIO \"LA TIENDITA DE JOHN\"");
 
-        lblFecha.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        lblFecha.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblFecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFecha.setText("Fecha Actual");
 
@@ -393,8 +430,8 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(82, 82, 82))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(294, 294, 294)))
+                        .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(269, 269, 269)))
                 .addComponent(lblSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -405,15 +442,15 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblFecha))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(lblSalir)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        lblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/bien-100.png"))); // NOI18N
+        lblImagen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("BIENVENIDO");
@@ -427,18 +464,15 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblImagen)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addComponent(lblNombre)))
-                                .addGap(18, 18, 18)))))
+                                .addGap(16, 16, 16)
+                                .addComponent(lblNombre))
+                            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Escritorio)
@@ -451,13 +485,12 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Escritorio))
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(lblImagen)
+                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -475,10 +508,10 @@ public class Principal extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_lblSalirMouseClicked
-
+    
     public static String fecha(){
         Date fecha = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat(" dd 'de' MMMMM yyyy ");
+        SimpleDateFormat formato = new SimpleDateFormat("dd ' de ' MMMMM ' del ' yyyy");
         return formato.format(fecha);
     }
             

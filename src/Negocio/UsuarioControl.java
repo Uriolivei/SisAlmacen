@@ -62,23 +62,13 @@ public class UsuarioControl {
     }
     
     //metodo para el Login
-    public String login(String email, String clave){
-        String resp = "0";
-        Usuario usu = this.DATOS.login(email, this.encriptar(clave));
-        if(usu!=null){
-            if(usu.isCondicion()){
-                Variables.usuarioId=usu.getIdusuario();
-                Variables.rolId=usu.getIdrol();
-                Variables.rolNombre=usu.getRolnombre();
-                Variables.usuarioNombre=usu.getNombre();
-                Variables.usuarioEmail=usu.getEmail();
-                resp = "1";
-            }else{
-                resp = "2";
-            }
-        }
-        return resp;
+    public Usuario login(String email, String clave) {
+    Usuario usu = this.DATOS.login(email, this.encriptar(clave)); // Asegúrate de que este método retorne un objeto Usuario
+    if (usu != null && usu.isCondicion()) {
+        return usu; // Retornamos el objeto Usuario si es válido
     }
+    return null; // Retornamos null si el usuario no es encontrado o no tiene acceso
+}
     
     //metodo para poder encriptar contraseña
     private static String encriptar(String valor){

@@ -91,7 +91,8 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
         Usuario usu = null;
         try {
             ps = CON.conectar().prepareStatement("SELECT u.idusuario,u.idrol,r.nombre AS rol_nombre,u.nombre,u.tipo_documento,u.documento,"
-                    + "u.direccion,u.telefono,u.email,u.imagen,u.condicion FROM usuarios u INNER JOIN roles r ON u.idrol=r.idrol WHERE u.email=? AND clave=?");
+                    + "u.direccion,u.telefono,u.email,u.imagen,u.condicion FROM usuarios u INNER JOIN roles r ON u.idrol=r.idrol WHERE u.email=? "
+                    + "AND u.clave=?");
             ps.setString(1, email);
             ps.setString(2, clave);
             rs = ps.executeQuery();
@@ -110,6 +111,7 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
         }
         return usu;
     }
+    
 
     @Override
     public boolean insertar(Usuario obj) {

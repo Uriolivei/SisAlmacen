@@ -16,19 +16,18 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
         initComponents();
         this.CONTROL=new CategoriaControl();
         this.accion = "Guardar";
-        listar();
+        listar("");
         //tablaListado.setEnabled(false);
         tabGeneral.setEnabledAt(1,false); 
     }
     
     //metodos CRUD
-    private void listar(){
+    private void listar(String texto){
         tablaListado.setModel(this.CONTROL.listar(""));
         TableRowSorter orden= new TableRowSorter(tablaListado.getModel());
         tablaListado.setRowSorter(orden);
         lblTotalRegistros.setText("Mostrando " + this.CONTROL.totalMostrados() + " de un total de " + this.CONTROL.total() + " registros");
     }
-     
     
     //metodos pra las ventanas emergentes
     private void mensajeError(String mensaje){
@@ -383,7 +382,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-       
+        listar(txtBuscar.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtDescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionFocusGained
@@ -409,7 +408,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
                 String resp = this.CONTROL.desactivar(Integer.parseInt(id));
                 if(resp.equals("Oki doki domi doki")){
                     this.mensajeOk("Registro desactivado");
-                    this.listar();
+                    this.listar("");
                 }else{
                     this.mensajeError(resp);
                 }
@@ -428,7 +427,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
                 String resp = this.CONTROL.activar(Integer.parseInt(id));
                 if(resp.equals("OK")){
                     this.mensajeOk("Registro activado");
-                    this.listar();
+                    this.listar("");
                 }else{
                     this.mensajeError(resp);
                 }
@@ -479,7 +478,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
             resp = this.CONTROL.actualizar(Integer.parseInt(txtId.getText()),txtNombre.getText(),this.nombreAnt, txtDescripcion.getText());
             if(resp.equals("OK")){
                 this.mensajeOk("Actualizado corectamente");
-                this.listar();
+                this.listar("");
                 tabGeneral.setSelectedIndex(0);
                 tabGeneral.setEnabledAt(1, false);
                 tabGeneral.setEnabledAt(0, true);
@@ -491,7 +490,7 @@ public class FrmCategorias extends javax.swing.JInternalFrame {
             resp = this.CONTROL.insertar(txtNombre.getText(), txtDescripcion.getText());
             if(resp.equals("OK")){
                 this.mensajeOk("Registrado corectamente");
-                this.listar();
+                this.listar("");
                 tabGeneral.setSelectedIndex(0);
                 tabGeneral.setEnabledAt(1, false);
                 tabGeneral.setEnabledAt(0, true);

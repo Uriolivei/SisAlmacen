@@ -53,7 +53,7 @@ public class Usuario {
         this.nombre = nombre;
         this.imagen = imagen;
     }
-    
+
     public int getIdusuario() {
         return idusuario;
     }
@@ -150,5 +150,8 @@ public class Usuario {
         this.condicion = condicion;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Usuario{" + "idusuario=" + idusuario + ", idrol=" + idrol + ", Rolnombre=" + Rolnombre + ", nombre=" + nombre + ", tipo_documento=" + tipo_documento + ", documento=" + documento + ", direccion=" + direccion + ", telefono=" + telefono + ", email=" + email + ", clave=" + clave + ", imagen=" + imagen + ", condicion=" + condicion + '}';
+    }
 }

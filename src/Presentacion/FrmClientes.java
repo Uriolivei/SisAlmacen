@@ -23,11 +23,11 @@ public class FrmClientes extends javax.swing.JInternalFrame {
     public FrmClientes() {
         initComponents();
         this.CONTROL=new ClienteControl();
-        this.listar();
+        this.listar("");
         this.accion = "Guardar";
     }
     
-    private void listar(){
+    private void listar(String texto){
         tablaListado.setModel(this.CONTROL.listar(""));
         TableRowSorter orden= new TableRowSorter(tablaListado.getModel());
         tablaListado.setRowSorter(orden);
@@ -100,6 +100,11 @@ public class FrmClientes extends javax.swing.JInternalFrame {
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/search-1.png"))); // NOI18N
         btnBuscar.setText("Buscar Cliente");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/register.png"))); // NOI18N
         btnRegistrar.setText("Registrar Cliente");
@@ -358,10 +363,11 @@ public class FrmClientes extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -487,7 +493,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
                     txtDirección.getText());
             if(resp.equals("OK")){
                 this.mensajeOk("Actualizado corectamente");
-                this.listar();
+                this.listar("");
                 tabGeneral.setSelectedIndex(0);
                 tabGeneral.setEnabledAt(1, false);
                 tabGeneral.setEnabledAt(0, true);
@@ -500,7 +506,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
                     txtTelefono.getText(), txtDirección.getText());
             if(resp.equals("OK")){
                 this.mensajeOk("Registrado corectamente");
-                this.listar();
+                this.listar("");
                 tabGeneral.setSelectedIndex(0);
                 tabGeneral.setEnabledAt(1, false);
                 tabGeneral.setEnabledAt(0, true);
@@ -567,7 +573,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
                 String resp=this.CONTROL.activar(Integer.parseInt(id));
                 if (resp.equals("OK")){
                     this.mensajeOk("Registro activado");
-                    this.listar();
+                    this.listar("");
                 }else{
                     this.mensajeError(resp);
                 }
@@ -587,7 +593,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
                 String resp=this.CONTROL.desactivar(Integer.parseInt(id));
                 if (resp.equals("OK")){
                     this.mensajeOk("Registro desactivado");
-                    this.listar();
+                    this.listar("");
                 }else{
                     this.mensajeError(resp);
                 }
@@ -660,6 +666,11 @@ public class FrmClientes extends javax.swing.JInternalFrame {
                     txtDirección.setForeground(java.awt.Color.BLACK);
         }
     }//GEN-LAST:event_txtDirecciónFocusLost
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        this.listar(txtBuscar.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

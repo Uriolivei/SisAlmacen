@@ -7,7 +7,6 @@ package Presentacion;
 import Entidades.Usuario;
 import Negocio.UsuarioControl;
 import java.awt.Image;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,7 +16,9 @@ import javax.swing.JOptionPane;
  * @author SENATI
  */
 public class FrmLogin extends javax.swing.JFrame {
-
+    private JLabel lblNombre; // Asegúrate de que esto esté declarado
+     private JLabel lblImagen;
+     private Usuario usuario;
     /**
      * Creates new form FrmLogin
      */
@@ -25,9 +26,10 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Acceso al Sistema");
         this.setLocationRelativeTo(null);
+        lblNombre = new JLabel(); 
+        lblImagen = new JLabel();
     }
     
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,7 +48,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jch_eye = new javax.swing.JCheckBox();
         btnIngresar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jpassword = new javax.swing.JPasswordField();
+        txtClave = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,7 +108,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 140, 50));
-        jPanel1.add(jpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 180, 30));
+        jPanel1.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 180, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/Imagenes/fondo.png"))); // NOI18N
         jLabel2.setText("CANCELAR");
@@ -129,36 +131,35 @@ public class FrmLogin extends javax.swing.JFrame {
     private void jch_eyeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jch_eyeMouseClicked
         // TODO add your handling code here:
         if(jch_eye.isSelected()){
-            jpassword.setEchoChar((char)0);
+            txtClave.setEchoChar((char)0);
         }else{
-            jpassword.setEchoChar('*');
+            txtClave.setEchoChar('*');
         }
     }//GEN-LAST:event_jch_eyeMouseClicked
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        if(txtEmail.getText().length()==0 || txtEmail.getText().length()>50){
-            JOptionPane.showMessageDialog(this,"Debes ingresar un email, y este no debe superar los 50 caracteres.","Sistema",JOptionPane.WARNING_MESSAGE);
-            txtEmail.requestFocus();
-            return;
-        }
-        if(jpassword.getText().length()==0 || jpassword.getText().length()>64){
-            JOptionPane.showMessageDialog(this,"Debes ingresar una clave de acceso, y este no debe superar los 64 caracteres.","Sistema",JOptionPane.WARNING_MESSAGE);
-            jpassword.requestFocus();
-            return;
-        }
-        UsuarioControl control=new UsuarioControl();
-        String resp=control.login(txtEmail.getText(), jpassword.getText());
-        if(resp.equals("1")){
-            this.dispose();
-            Principal frm=new Principal();
-            frm.toFront();
-            frm.setVisible(true);
-        }else if(resp.equals("2")){
-            JOptionPane.showMessageDialog(this,"Usuario no tiene acceso.","Sistema",JOptionPane.ERROR_MESSAGE);
-        }else{
-            JOptionPane.showMessageDialog(this,"Los datos de acceso son incorrectos.","Sistema",JOptionPane.ERROR_MESSAGE);
-        }
+        String email = txtEmail.getText();
+    String clave = new String(txtClave.getPassword());
+
+    // Aquí deberías realizar la validación real con la base de datos
+    if (validarCredenciales(email, clave)) {
+        // Supongamos que has validado al usuario correctamente y lo recuperas
+        usuario = new Usuario(1, "John Doe", "imagen.png"); // Ejemplo de creación del usuario
+
+        // Crear la ventana principal y pasar el objeto usuario
+        Principal principal = new Principal();
+        principal.setVisible(true);
+        this.dispose(); // Cerrar el formulario de login
+    } else {
+        JOptionPane.showMessageDialog(this, "Credenciales incorrectas.");
+    }
+}
+
+// Ejemplo de método para validar credenciales (deberías reemplazarlo con tu lógica real)
+private boolean validarCredenciales(String email, String clave) {
+    // Aquí iría la lógica para validar el email y la clave desde la base de datos
+    return email.equals("jefe@gmail.com") && clave.equals("admin1108");
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -211,7 +212,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JCheckBox jch_eye;
-    private javax.swing.JPasswordField jpassword;
+    private javax.swing.JPasswordField txtClave;
     private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 }
