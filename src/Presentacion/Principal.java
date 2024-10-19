@@ -486,7 +486,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void lblSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalirMouseClicked
         // TODO add your handling code here:
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas salir de la Pantalla principal?","Confirmación",
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas ir al Login?","Confirmación",
             JOptionPane.YES_NO_OPTION);
 
         if (opcion == JOptionPane.YES_OPTION) {
