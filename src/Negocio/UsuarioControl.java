@@ -1,9 +1,12 @@
 package Negocio;
 
+import DataBase.Conexion;
 import Datos.RolDAO;
 import Datos.UsuarioDAO;
 import Entidades.Rol;
 import Entidades.Usuario;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ public class UsuarioControl {
     private Usuario obj;
     private DefaultTableModel modeloTabla;
     public int registroMostrados;
+    private Usuario usuario;
     
     public UsuarioControl(){
         this.DATOS = new UsuarioDAO();
@@ -100,6 +104,7 @@ public class UsuarioControl {
 	return sb.toString();
     }
     
+     
     //metodo para seleccionar un Rol
     public DefaultComboBoxModel seleccionar(){
         DefaultComboBoxModel items = new DefaultComboBoxModel();
@@ -216,4 +221,5 @@ public class UsuarioControl {
     public int totalMostrados(){
         return this.registroMostrados;
     }
+    
 }

@@ -16,6 +16,7 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
     private PreparedStatement ps;
     private ResultSet rs;
     private boolean resp;
+    private Connection conn;
     
     public UsuarioDAO(){
         CON=Conexion.getInstancia();
@@ -114,6 +115,7 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
         return usu;
     }
     
+        
     @Override
     public boolean insertar(Usuario obj) {
         resp = false;
@@ -255,5 +257,4 @@ public class UsuarioDAO implements CrudPaginadoInterface<Usuario>{
         }
          return resp;
     }
-    
 }

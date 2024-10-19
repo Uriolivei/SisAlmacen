@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -28,8 +30,8 @@ import javax.swing.KeyStroke;
  * @author SENATI
  */
 public class Principal extends javax.swing.JFrame {
-     private JMenu activeMenu;
-     
+    private JMenu activeMenu;
+    private Usuario usuario;
     /**
      * Creates new form Principal
      */
@@ -38,6 +40,8 @@ public class Principal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         lblFecha.setText(fecha());
         //setExtendedState(MAXIMIZED_BOTH);//Expandir la ventana al 100%
+        this.usuario = usuario;
+        mostrarDatosUsuario(usuario);
 
         //Imagenes
         ImageIcon icon = new ImageIcon(getClass().getResource("/Presentacion/Imagenes/box_1.png"));
@@ -279,6 +283,28 @@ public class Principal extends javax.swing.JFrame {
         
     }
     
+    
+    public void mostrarDatosUsuario(Usuario usuario) {
+    /*if (usuario != null) {
+        lblNombre.setText(usuario.getNombre()); // Mostrar nombre
+        ImageIcon imagen = new ImageIcon(usuario.getImagen()); // Cargar la imagen
+        lblImagen.setIcon(imagen); // Mostrar imagen
+    } else {
+        lblNombre.setText("Usuario no encontrado");
+        lblImagen.setIcon(null);
+        System.out.println(usuario.getImagen());
+    }*/
+    if (usuario != null) {
+        lblNombre.setText(usuario.getNombre()); // Mostrar nombre
+        ImageIcon imagen = new ImageIcon(usuario.getImagen()); // Cargar la imagen
+        lblImagen.setIcon(imagen); // Mostrar imagen
+    } else {
+        lblNombre.setText("Usuario no encontrado");
+        lblImagen.setIcon(null);
+    }
+}
+    
+    
     private void setupMenu(JMenu menu, Color color) {
         menu.setForeground(Color.BLACK);
         menu.addMouseListener(new MouseAdapter() {
@@ -301,7 +327,7 @@ public class Principal extends javax.swing.JFrame {
                 menu.setForeground(color); // Cambiar el color del menú actual a naranja
                 activeMenu = menu; // Actualizar el menú activo
             }
-        });      
+        });
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -425,15 +451,14 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(lblNombre)))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNombre)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Escritorio)

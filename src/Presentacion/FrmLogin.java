@@ -6,6 +6,7 @@ package Presentacion;
 
 import Entidades.Usuario;
 import Negocio.UsuarioControl;
+import static java.lang.Character.CONTROL;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author SENATI
  */
 public class FrmLogin extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form FrmLogin
      */
@@ -21,7 +22,6 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Acceso al Sistema");
         this.setLocationRelativeTo(null);
-        
     }
     
 
@@ -152,9 +152,9 @@ public class FrmLogin extends javax.swing.JFrame {
         UsuarioControl control=new UsuarioControl();
         String resp=control.login(txtEmail.getText(), txtClave.getText());
         if (resp.equals("1")){
-            Principal frm=new Principal();
-            frm.setVisible(true); 
             this.dispose();
+            Principal frm=new Principal();
+            frm.setVisible(true);
             frm.toFront();
         }else if(resp.equals("2")){
             JOptionPane.showMessageDialog(this,"Usuario no tiene acceso.","Sistema",JOptionPane.ERROR_MESSAGE);
