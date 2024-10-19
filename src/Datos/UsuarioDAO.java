@@ -3,7 +3,7 @@ package Datos;
 import DataBase.Conexion;
 import Datos.CrudInterface.CrudPaginadoInterface;
 import Entidades.Usuario;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.sql.ResultSet;
