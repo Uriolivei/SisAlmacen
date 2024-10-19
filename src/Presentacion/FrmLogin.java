@@ -13,9 +13,7 @@ import javax.swing.JOptionPane;
  * @author SENATI
  */
 public class FrmLogin extends javax.swing.JFrame {
-    //private JLabel lblNombre; // Asegúrate de que esto esté declarado
-     //private JLabel lblImagen;
-     private Usuario usuario;
+    
     /**
      * Creates new form FrmLogin
      */
