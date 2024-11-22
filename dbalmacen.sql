@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2024 a las 11:49:55
+-- Tiempo de generación: 22-11-2024 a las 02:23:58
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,29 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `dbalmacen`
 --
-
-DELIMITER $$
---
--- Procedimientos
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_compras` (IN `producto_id` INT, IN `cliente_id` INT, IN `usuario_id` INT, IN `tipo_comprobante` VARCHAR(20), IN `serie_comprobante` VARCHAR(100), IN `IGV` DECIMAL(2,2), IN `estado` ENUM('Aceptado','Rechazado'), IN `cantidad_producto` INT)   begin
-    insert into compras(
-        producto_id, cliente_id, usuario_id, tipo_comprobante,
-        serie_comprobante, fecha_compra, IGV, condicion, cantidad_producto)
-    values(
-        producto_id, cliente_id, usuario_id, tipo_comprobante, 
-        serie_comprobante, now(), IGV, estado, cantidad_producto);
-end$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `venta` (IN `producto_id` INT, IN `cliente_id` INT, IN `usuario_id` INT, IN `tipo_comprobante` VARCHAR(20), IN `cantidad` INT, IN `IGV` DECIMAL(2,2), IN `condicion` ENUM('Aceptado','Rechazado'))   begin
-if cantidad <= 0 then
-	signal sqlstate '45000' set message_text = 'La cantidad de productos debe ser mayor que cero.';
-end if;
-insert into ventas(producto_id, cliente_id, usuario_id, tipo_comprobante, cantidad,IGV, fecha_venta, condicion)
-values(producto_id, cliente_id, usuario_id, tipo_comprobante, cantidad,IGV, NOW(), condicion);
-end$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -62,19 +39,19 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`idcategoria`, `nombre`, `descripcion`, `condicion`) VALUES
-(1, 'Azúcar', 'Azúcar Rubia', b'0'),
-(2, 'Arroz', 'Arroz Alejandrina', b'0'),
-(3, 'Aceite', 'Aceite palmerola', b'0'),
-(4, 'Fideos', 'Fideos Alianza', b'0'),
-(5, 'Menestras', 'Menestra tipo lenteja', b'0'),
-(6, 'Leche', 'Leche Gloria', b'0'),
-(7, 'Huevo', 'Huevo fresco', b'0'),
-(8, 'Atún', 'Atún AA', b'0'),
-(9, 'Filete', 'Filete Gloria', b'0'),
-(10, 'Detergente', 'Detergente Marsella', b'0'),
-(11, 'Jabón', 'Jabón Bolívar Azul', b'0'),
-(12, 'Pasta Dental', 'Pasta Dental Colgate', b'0'),
-(13, 'Verduras', 'Verduras frescas', b'0');
+(1, 'Azúcar', 'Azúcar Rubia', b'1'),
+(2, 'Arroz', 'Arroz Alejandrina', b'1'),
+(3, 'Aceite', 'Aceite palmerola', b'1'),
+(4, 'Fideos', 'Fideos Alianza', b'1'),
+(5, 'Menestras', 'Menestra tipo lenteja', b'1'),
+(6, 'Leche', 'Leche Gloria', b'1'),
+(7, 'Huevo', 'Huevo fresco', b'1'),
+(8, 'Atún', 'Atún AA', b'1'),
+(9, 'Filete', 'Filete Gloria', b'1'),
+(10, 'Detergente', 'Detergente Marsella', b'1'),
+(11, 'Jabón', 'Jabón Bolívar Azul', b'1'),
+(12, 'Pasta Dental', 'Pasta Dental Colgate', b'1'),
+(13, 'Verduras', 'Verduras frescas', b'1');
 
 -- --------------------------------------------------------
 
@@ -101,8 +78,9 @@ INSERT INTO `clientes` (`idcliente`, `nombre_cliente`, `tipo_documento`, `docume
 (1, 'Lalo Ramos', 'DNI', '65948217', 'Cliente Frecuente', 985647231, 'Jr. Aguaytia', b'1'),
 (2, 'León Ruiz', '12364587', '12364587', 'Cliente', 956487512, 'Jr. Las Palmeras', b'1'),
 (3, 'LEONCITO S.A.C', 'RUC', '2068954714', 'Proveedor', 985647231, 'Av. Centenario', b'1'),
-(4, 'Joel Ramirez', 'DNI', '65987412', 'Cliente', 956956623, 'La Túpac', b'1'),
-(5, 'Ingrid Witting', 'DNI', '65489712', 'Cliente Nuevo', 956326985, 'Av. Miraflores', b'1');
+(4, 'Joel Ramirez', 'RUC', '65987412', 'Cliente', 956956624, 'La Túpac', b'1'),
+(5, 'Ingrid Witting', 'DNI', '65489712', 'Cliente Nuevo', 956326985, 'Av. Miraflores', b'1'),
+(6, 'RANITA S.A.C', 'RUC', '25465987812', 'Proveedor', 956365258, 'Av. Centenario', b'1');
 
 -- --------------------------------------------------------
 
@@ -190,15 +168,6 @@ CREATE TABLE `consulta_productos` (
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `consulta_usuarios`
--- (Véase abajo para la vista actual)
---
-CREATE TABLE `consulta_usuarios` (
-);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `productos`
 --
 
@@ -221,8 +190,7 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`idproducto`, `categoria_id`, `nombre_producto`, `descripcion_producto`, `imagen_producto`, `codigo_producto`, `marca_producto`, `cantidad_producto`, `fecha_vencimiento`, `precio_compra`, `condicion`) VALUES
-(1, 2, 'Arroz Regional ', 'Arroz Regional Graneado', 'Yeji_2.jpg', 'CD00001', 'Alejandrina', 15, '2024-12-18', 120.00, b'1'),
-(2, 1, 'Azúcar Regional', 'Azúcar Regional Rubia', 'Yeji_3.jpg', 'CD00002', 'Castillo', 12, '2024-11-22', 150.00, b'1');
+(1, 2, 'Arroz regional', 'Arroz regional graneado', 'Yeji_3.png', 'CD00001', 'Alejandrina', 15, '2024-12-20', 150.00, b'1');
 
 -- --------------------------------------------------------
 
@@ -242,9 +210,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`idrol`, `nombre`, `descripcion`, `condicion`) VALUES
-(1, 'Administrador', 'Product Owner (Dueño del Sistema)', b'1'),
-(2, 'Asistente', 'Asistente del Sistema', b'1'),
-(3, 'Vendedor', 'Vendedor del Sistema', b'1');
+(1, 'Administrador', 'Administrador del Sistema(Product Owver)', b'1'),
+(2, 'Asistente', 'Mano derecha del Administrador', b'1');
 
 -- --------------------------------------------------------
 
@@ -262,7 +229,7 @@ CREATE TABLE `usuarios` (
   `telefono` int(20) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `clave` varchar(128) DEFAULT NULL,
-  `imagen` varchar(100) DEFAULT NULL,
+  `imagen` varchar(255) DEFAULT NULL,
   `condicion` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -271,8 +238,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`idusuario`, `idrol`, `nombre`, `tipo_documento`, `documento`, `direccion`, `telefono`, `email`, `clave`, `imagen`, `condicion`) VALUES
-(1, 1, 'John Perez', 'DNI', '45678914', 'Av. Centenario', 956321478, 'admin@gmail.com', '65bf6501d80f07d4cfce6079a5d2fe403be5b4d9f581ef1d4b8aed66168ed1a0', 'Yeji_1.png', 1),
-(2, 2, 'Juan Lopez', 'DNI', '45698712', 'Jr. Las Palmeras', 965326956, 'asistente1@gmail.com', '9374878bb8170f1777b2437cd9d586e0438a6d494912c5a1b7ecea0c8150640f', 'Yeji-1.png', 1);
+(1, 1, 'Jonh Perez', 'DNI', '65983245', 'Av. Centenario', 956987456, 'admin@gmail.com', '65bf6501d80f07d4cfce6079a5d2fe403be5b4d9f581ef1d4b8aed66168ed1a0', 'Yeji_1.jpg', 1),
+(2, 2, 'Joel Ramírez', 'DNI', '65987845', 'Jr. Aguaytia', 936528541, 'asistente@gmail.com', '480f2649f990ed8a785841bacdab7395f7d4930ccdc94fd34ca5e19e7c66f3fc', 'Yeji_2.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -370,15 +337,6 @@ DROP TABLE IF EXISTS `consulta_productos`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `consulta_productos`  AS SELECT `c`.`nombre` AS `Categorias`, concat(`p`.`nombre_producto`,' - ',`p`.`marca_producto`) AS `Productos`, `p`.`cantidad_producto` AS `Cantidad` FROM (`productos` `p` join `categorias` `c` on(`p`.`categoria_id` = `c`.`idcategoria`)) ;
 
--- --------------------------------------------------------
-
---
--- Estructura para la vista `consulta_usuarios`
---
-DROP TABLE IF EXISTS `consulta_usuarios`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `consulta_usuarios`  AS SELECT `usuarios`.`idusuario` AS `idusuario`, `usuarios`.`nombre` AS `nombre`, `usuarios`.`cargo` AS `cargo`, `usuarios`.`tipo_documento` AS `tipo_documento`, `usuarios`.`documento` AS `documento`, `usuarios`.`telefono` AS `telefono`, `usuarios`.`direccion` AS `direccion`, `usuarios`.`fecha_contrato` AS `fecha_contrato`, `usuarios`.`condicion` AS `condicion` FROM `usuarios` ;
-
 --
 -- Índices para tablas volcadas
 --
@@ -449,7 +407,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
@@ -461,13 +419,13 @@ ALTER TABLE `compras`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `idrol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idrol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -503,15 +461,7 @@ ALTER TABLE `productos`
 -- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`idrol`) REFERENCES `roles` (`idrol`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `ventas`
---
-ALTER TABLE `ventas`
-  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`idproducto`),
-  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`idcliente`),
-  ADD CONSTRAINT `ventas_ibfk_3` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`idusuario`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `idrol` FOREIGN KEY (`idrol`) REFERENCES `roles` (`idrol`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -142,8 +142,8 @@
                           <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="lblFecha" min="-2" pref="210" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="269" max="-2" attributes="0"/>
+                          <Component id="lblFecha" min="-2" pref="266" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="237" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="lblSalir" min="-2" pref="103" max="-2" attributes="0"/>
